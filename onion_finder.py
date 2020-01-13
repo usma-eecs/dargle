@@ -24,7 +24,7 @@ def find_onions(filename):
 
 files = glob.glob("*.warc.wet.gz")
 start = time.time()
-while not files:
+# while not files:
 
 # for warcfile in glob.glob("*.warc.wet.gz"):
 #     find_onions(warcfile)
