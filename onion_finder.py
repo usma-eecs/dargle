@@ -6,10 +6,11 @@ from multiprocessing import Pool, cpu_count # To utilize multiple processors to 
 from subprocess import Popen, PIPE # Make the script universal
 from sys import platform # Determine system
 from collections import Counter # Self-Explanatory
+from os import path # Import path to use the exists function for tracking
 
-# Regex for onion domain. Must be able to find with and without www, http://, and https://
-# onion_regex = r'(?:https?\:\/\/)?[\w\-\.]+\.onion'
-onion_domain_regex = r'(?:https?\:\/\/)?[a-zA-Z2-7]{16}\.onion'#(?:\/([^/]*))?$'
+# Regex for onion pages and domains. Must be able to find with and without www, http://, and https://
+onion_page_regex = r'(?:https?\:\/\/)?[a-zA-Z2-7]{16}\.onion?(?:\/([^/]*))?$'
+onion_domain_regex = r'(?:https?\:\/\/)?[a-zA-Z2-7]{16}\.onion'
 
 # Determine OS and number of processes to use
 def os_processes():
@@ -32,40 +33,46 @@ def os_processes():
     return MAX_PROCESSES
 
 # Tracker
-def track_onions():
-    pass
+def tracker(filename):
+    with open('finished.txt', 'a+') as f:
+        print(filename, file=f)
 
 # Counter
 def count_domains(filename):
     with open(filename, 'r') as f:
-        with open("domain_counts.txt", 'w') as output:
+        with open("onion_counts.txt", 'w') as output:
             lines = [line.strip() for line in f]
             domain_counts = Counter(lines)
             for k,v in  domain_counts.items():
-                output.write( "{} {}\n".format(k,v) )
+                output.write("{} {}\n".format(k,v))
 
 # Find onions in data
 def find_onions(filename):
-    onion = re.compile(onion_domain_regex, re.IGNORECASE)
+    onion_domain = re.compile(onion_domain_regex, re.IGNORECASE)
+    onion_page = re.compile(onion_page_regex, re.IGNORECASE)
     with warc.open(filename) as f:
-        with open("onion_domains.txt", 'a+') as output:
+        with open("onions.txt", 'a+') as output:
             for record in f:
                 url = str(record.header.get('WARC-Target-URI', None))
-                match = onion.search(url)
-                if match:
-                    domain = match.group(0)
-                    print(domain, file=output)
-                    # output.write(domain + '\n')
+                domain_match = onion_domain.search(url)
+                page_match = onion_page.search(url)
+                if domain_match:
+                    match = domain_match.group(0)
+                    print(match, file=output)
+                if page_match:
+                    match = page_match.group(0)
+                    print(match, file=output)
+    tracker(filename)
 
 if __name__ == "__main__":
     files = glob("*.warc.wet.gz")
+    if path.exists('finished.txt'):
+        used = [line.rstrip('\n') for line in open('finished.txt')]
+        files = [f for f in files if f not in used]
     processors = os_processes()
     print("Searching for onions.........")
-    # start = time()
     pool = Pool(processors)
     pool.map(find_onions, files)
     pool.close()
-    # end = time()
-    # print("Time Elapsed: ", end - start)
     print("Now counting domains........")
-    count_domains("onion_domains.txt")
+    count_domains("onions.txt")
