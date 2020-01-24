@@ -1,0 +1,3 @@
+https://api.github.com/events
+http://reddit.com
+https://doesnotexist.yeet

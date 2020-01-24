@@ -1,0 +1,3 @@
+https://api.github.com/events: 200
+http://reddit.com: 401
+https://doesnotexist.yeet: 404
