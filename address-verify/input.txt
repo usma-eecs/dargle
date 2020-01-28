@@ -1,3 +1,5 @@
 https://api.github.com/events
 http://reddit.com
 https://doesnotexist.yeet
+https://www.facebookcorewwwi.onion/
+https://www.propub3r6espa33w.onion/

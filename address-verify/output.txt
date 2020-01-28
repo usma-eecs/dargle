@@ -1,3 +1,5 @@
 https://api.github.com/events: 200
 http://reddit.com: 401
 https://doesnotexist.yeet: 404
+https://www.facebookcorewwwi.onion/: 200
+https://www.propub3r6espa33w.onion/: 404
