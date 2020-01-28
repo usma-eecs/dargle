@@ -18,17 +18,17 @@ headers['User-agent'] = "HotJava/1.1.2 FCS"
 for line in innie:
     try:
         site = line.rstrip('\n')
-        r = session.get(site, allow_redirects=True, timeout=5, headers=headers)
+        r = session.get(site, allow_redirects=True, timeout=120, headers=headers)
         # Legacy:
         #rText = str(r.text)
         rStatus = str(r.status_code)
-        outie.write(site+": "+rStatus+"\n")
+        outie.write(site+": "+rStatus+"\n\n")
 
     except Exception as e:
         print(str(e))
         site = line.rstrip('\n')
-        rStatus = "404"
-        outie.write(site+": "+rStatus+"\n")
+        rStatus = str(e)
+        outie.write(site+": "+rStatus+"\n\n")
 
 innie.close()
 outie.close()

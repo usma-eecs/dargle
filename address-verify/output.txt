@@ -1,5 +1,10 @@
 https://api.github.com/events: 200
+
 http://reddit.com: 401
-https://doesnotexist.yeet: 404
+
+https://doesnotexist.yeet: SOCKSHTTPSConnectionPool(host='doesnotexist.yeet', port=443): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.contrib.socks.SOCKSHTTPSConnection object at 0x7fa4389a9a90>: Failed to establish a new connection: 0x04: Host unreachable',))
+
 https://www.facebookcorewwwi.onion/: 200
-https://www.propub3r6espa33w.onion/: 404
+
+https://www.propub3r6espa33w.onion/: SOCKSHTTPSConnectionPool(host='www.propub3r6espa33w.onion', port=443): Max retries exceeded with url: / (Caused by ConnectTimeoutError(<urllib3.contrib.socks.SOCKSHTTPSConnection object at 0x7fa43873a310>, 'Connection to www.propub3r6espa33w.onion timed out. (connect timeout=10)'))
+
