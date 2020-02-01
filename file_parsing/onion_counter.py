@@ -3,6 +3,7 @@ from multiprocessing import Pool, cpu_count # To utilize multiple processors to 
 from subprocess import Popen, PIPE # Make the script universal
 from sys import platform # Determine system
 from collections import Counter # Self-Explanatory
+from operator import itemgetter
 
 # Determine OS and number of processes to use
 def os_processes():
@@ -26,12 +27,32 @@ def os_processes():
 
 # Counter
 def count_onions(filename):
+    file_onions = {}
     with open(filename, 'r') as f:
         with open("onion_counts.txt", 'a+') as output:
-            lines = [line.strip() for line in f]
-            counts = Counter(lines)
-            for k,v in counts.items():
-                output.write("{} | {}\n".format(k, v))
+            for line in f:
+                (site, onion) = line.split()
+                file_onions.setdefault(onion, []).append(site)
+            # sorted_onions = sorted(file_onions.items(), key=lambda item: len(item[1]), reverse=True)
+            # file_onions = dict(sorted_onions)
+            # for k in sorted(file_onions, key=lambda k: len(file_onions[k]), reverse=True):
+                # output.write("{} | {}\n".format(k, len(file_onions[k])))
+            for k,v in file_onions.items():
+                output.write("{} | {}\n".format(k, len(v)))
+
+# Counter
+def sort_onions(filename):
+    unsorted_onions = []
+    sorted_onions = []
+    with open(filename, 'r') as f:
+        for line in f:
+            unsorted_onions.append(line)
+        with open("sorted_onion_counts.txt", 'a+') as output:
+            for u in unsorted_onions:
+                sorted_onions.append(u.split('|'))
+            sorted_onions = sorted(sorted_onions, key=itemgetter(1), reverse=True)
+            for x in sorted_onions:
+                output.write("{} | {}".format(x[0], x[1]))
 
 if __name__ == "__main__":
     files = glob("*.txt")
@@ -40,3 +61,4 @@ if __name__ == "__main__":
     pool = Pool(processors)
     pool.map(count_onions, files)
     pool.close()
+    sort_onions('onion_counts.txt')
