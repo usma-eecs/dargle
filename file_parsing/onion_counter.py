@@ -2,8 +2,7 @@ from glob import glob # To find all files in specified directory
 from multiprocessing import Pool, cpu_count # To utilize multiple processors to speed up the script
 from subprocess import Popen, PIPE # Make the script universal
 from sys import platform # Determine system
-from collections import Counter # Self-Explanatory
-from operator import itemgetter
+from operator import itemgetter # Retrieves the number out of the list to sort
 
 # Determine OS and number of processes to use
 def os_processes():
@@ -33,10 +32,6 @@ def count_onions(filename):
             for line in f:
                 (site, onion) = line.split()
                 file_onions.setdefault(onion, []).append(site)
-            # sorted_onions = sorted(file_onions.items(), key=lambda item: len(item[1]), reverse=True)
-            # file_onions = dict(sorted_onions)
-            # for k in sorted(file_onions, key=lambda k: len(file_onions[k]), reverse=True):
-                # output.write("{} | {}\n".format(k, len(file_onions[k])))
             for k,v in file_onions.items():
                 output.write("{} | {}\n".format(k, len(v)))
 
