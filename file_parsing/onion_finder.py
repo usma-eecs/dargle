@@ -1,13 +1,18 @@
 import re # Regular expression library
 import warc # warc3-wet. To read common crawl files.
 from glob import glob # To find all files in specified directory
-from multiprocessing import Pool, cpu_count # To utilize multiple processors to speed up the script
+from multiprocessing import Pool, cpu_count, Queue # To utilize multiple processors to speed up the script
 from subprocess import Popen, PIPE # Make the script universal
 from sys import platform # Determine system
 from os.path import splitext # Used in tracking
 
-# Regex for onion pages and domains. Must be able to find with and without www, http://, and https://
+# Regex for onions 
+# onion_regex = r'(?:https?\:\/\/)?[a-zA-Z2-7]{16}\.onion?(?:\/([^/]*))?'
 onion_regex = r'(?:https?\:\/\/)?[a-zA-Z2-7]{16}\.onion?(?:\/([^/]*))?'
+
+# Split input into even sized chunks
+def split_list(l, n):
+    return [l[i:i+n] for i in range(0, len(l), n)]
 
 # Determine OS and number of processes to use
 def os_processes():
@@ -38,17 +43,17 @@ def find_onions(filename):
             for record in f:
                 url = str(record.header.get('WARC-Target-URI', None))
                 data = str(record.payload.read())
-                onion_match = onion.search(url)
+                url_match = onion.search(url)
                 payload_match = onion.search(data)
-                if onion_match:
-                    match = onion_match.group(0)
+                if url_match:
+                    match = url_match.group(0)
                     file_onions[url] = []
                     file_onions[url].append(match)
                 if payload_match:
                     match = payload_match.group(0)
                     file_onions[url] = []
                     file_onions[url].append(match)
-            for k,v in  file_onions.items():
+            for k,v in file_onions.items():
                 output.write("{} {}\n".format(k,','.join(v)))
 
 if __name__ == "__main__":
@@ -57,8 +62,11 @@ if __name__ == "__main__":
     completed = [splitext(c)[0] for c in completed]
     if completed:
         files = [f for f in files if f.strip(".warc.wet.gz") not in completed]
-    processors = os_processes()
-    print("Searching for onions.........")
-    pool = Pool(processors)
-    pool.map(find_onions, files)
-    pool.close()
+    if len(files) == 0:
+        print("All Common Crawl Files have been searched!")
+    else:
+        processors = os_processes()
+        print("Searching for onions.........")
+        pool = Pool(processors)
+        pool.map(find_onions, files)
+        pool.close()
