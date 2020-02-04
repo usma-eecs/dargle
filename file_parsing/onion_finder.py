@@ -5,10 +5,10 @@ from multiprocessing import Pool, cpu_count, Queue # To utilize multiple process
 from subprocess import Popen, PIPE # Make the script universal
 from sys import platform # Determine system
 from os.path import splitext # Used in tracking
-
+from time import time
 # Regex for onions 
 # onion_regex = r'(?:https?\:\/\/)?[a-zA-Z2-7]{16}\.onion?(?:\/([^/]*))?'
-onion_regex = r'(?:https?\:\/\/)?[a-zA-Z2-7]{16}\.onion?(?:\/([^/]*))?'
+onion_regex = r'(?:https?\:\/\/)?[a-zA-Z2-7]{16}\.onion?(?:\/([^/\s]*))?'
 
 # Split input into even sized chunks
 def split_list(l, n):
@@ -57,6 +57,7 @@ def find_onions(filename):
                 output.write("{} {}\n".format(k,','.join(v)))
 
 if __name__ == "__main__":
+    start = time()
     files = glob("*.warc.wet.gz")
     completed = glob("*.txt")
     completed = [splitext(c)[0] for c in completed]
@@ -70,3 +71,5 @@ if __name__ == "__main__":
         pool = Pool(processors)
         pool.map(find_onions, files)
         pool.close()
+    end = time()
+    print("Time Elasped: ", end-start)
