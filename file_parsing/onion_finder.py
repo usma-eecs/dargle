@@ -8,7 +8,8 @@ from os.path import splitext # Used in tracking
 from time import time
 # Regex for onions 
 # onion_regex = r'(?:https?\:\/\/)?[a-zA-Z2-7]{16}\.onion?(?:\/([^/]*))?'
-onion_regex = r'[a-zA-Z2-7]{16}\.onion?(?:\/([^/ \s]*))?'
+onion_regex = r'[a-zA-Z2-7]{16}\.onion?(?:\/([^/ \\\s]*))?'
+onion = re.compile(onion_regex, re.IGNORECASE)
 
 # Split input into even sized chunks
 def split_list(l, n):
@@ -36,8 +37,8 @@ def os_processes():
 
 # Find onions in data
 def find_onions(filename):
+    global onion
     file_onions = {}
-    onion = re.compile(onion_regex, re.IGNORECASE)
     with warc.open(filename) as f:
         with open("{}.txt".format(filename.strip(".warc.wet.gz")), 'a+') as output:
             for record in f:
