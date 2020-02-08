@@ -1,5 +1,6 @@
 import re # Regular expression library
 import warc # warc3-wet. To read common crawl files.
+import csv # Output format
 from glob import glob # To find all files in specified directory
 from multiprocessing import Pool, cpu_count # To utilize multiple processors to speed up the script
 from subprocess import Popen, PIPE # Make the script universal
@@ -7,7 +8,6 @@ from sys import platform # Determine system
 from os.path import splitext # Used in tracking
 
 # Regex for onions 
-# onion_regex = r'(?:https?\:\/\/)?[a-zA-Z2-7]{16}\.onion?(?:\/([^/]*))?'
 onion_regex = r'[a-zA-Z2-7]{16}\.onion?(?:\/([^/ \\\s]*))?'
 onion = re.compile(onion_regex, re.IGNORECASE)
 
@@ -36,7 +36,9 @@ def find_onions(filename):
     global onion
     file_onions = {}
     with warc.open(filename) as f:
-        with open("{}.txt".format(filename.strip(".warc.wet.gz")), 'a+') as output:
+        with open("{}.csv".format(filename.strip(".warc.wet.gz")), 'w', newline='') as output:
+            writer = csv.writer(output)
+            writer.writerow(["Site", "Onion"])
             for record in f:
                 url = str(record.header.get('WARC-Target-URI', None))
                 data = str(record.payload.read())
@@ -51,11 +53,12 @@ def find_onions(filename):
                     file_onions[url] = []
                     file_onions[url].append(match)
             for k,v in file_onions.items():
-                output.write("{} {}\n".format(k,','.join(v)))
+                for i in v:
+                    writer.writerow([k, i])
 
 if __name__ == "__main__":
     files = glob("*.warc.wet.gz")
-    completed = glob("*.txt")
+    completed = glob("*.csv")
     completed = [splitext(c)[0] for c in completed]
     if completed:
         files = [f for f in files if f.strip(".warc.wet.gz") not in completed]
