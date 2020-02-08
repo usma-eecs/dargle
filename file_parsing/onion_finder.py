@@ -1,19 +1,15 @@
 import re # Regular expression library
 import warc # warc3-wet. To read common crawl files.
 from glob import glob # To find all files in specified directory
-from multiprocessing import Pool, cpu_count, Queue # To utilize multiple processors to speed up the script
+from multiprocessing import Pool, cpu_count # To utilize multiple processors to speed up the script
 from subprocess import Popen, PIPE # Make the script universal
 from sys import platform # Determine system
 from os.path import splitext # Used in tracking
-from time import time
+
 # Regex for onions 
 # onion_regex = r'(?:https?\:\/\/)?[a-zA-Z2-7]{16}\.onion?(?:\/([^/]*))?'
 onion_regex = r'[a-zA-Z2-7]{16}\.onion?(?:\/([^/ \\\s]*))?'
 onion = re.compile(onion_regex, re.IGNORECASE)
-
-# Split input into even sized chunks
-def split_list(l, n):
-    return [l[i:i+n] for i in range(0, len(l), n)]
 
 # Determine OS and number of processes to use
 def os_processes():
@@ -58,7 +54,6 @@ def find_onions(filename):
                 output.write("{} {}\n".format(k,','.join(v)))
 
 if __name__ == "__main__":
-    start = time()
     files = glob("*.warc.wet.gz")
     completed = glob("*.txt")
     completed = [splitext(c)[0] for c in completed]
@@ -72,5 +67,3 @@ if __name__ == "__main__":
         pool = Pool(processors)
         pool.map(find_onions, files)
         pool.close()
-    end = time()
-    print("Time Elasped: ", end-start)
