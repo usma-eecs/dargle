@@ -1,3 +1,5 @@
+import csv # Output and input format
+from urllib.parse import urlparse # Find domain
 from glob import glob # To find all files in specified directory
 from multiprocessing import Pool, cpu_count # To utilize multiple processors to speed up the script
 from subprocess import Popen, PIPE # Make the script universal
@@ -30,12 +32,17 @@ def os_processes():
 def init_onions(filename):
     file_onions = {}
     with open(filename, 'r') as f:
-        with open("initial_counts.txt", 'a+') as output:
-            for line in f:
-                (site, onion) = line.split()
+        reader = csv.reader(f, quotechar='"', delimiter=',',
+                     quoting=csv.QUOTE_ALL, skipinitialspace=True)
+        next(reader)
+        with open("initial_counts.csv", 'a+', newline='') as output:
+            writer = csv.writer(output)
+            for line in reader:
+                site = line[0]
+                onion = line[1]
                 file_onions.setdefault(onion, []).append(site)
             for k,v in file_onions.items():
-                output.write("{} , {}\n".format(k, len(v)))
+                writer.writerow([k, len(v)])
 
 # Mid-Counter
 def mid_onions(filename):
@@ -43,9 +50,12 @@ def mid_onions(filename):
     domains = []
     mid_onions = {}
     with open(filename, 'r') as f:
-        with open("mid_counts.txt", 'a+') as output:
-            for line in f:
-                (onion, num) = line.replace(" ", "").split(',')
+        reader = csv.reader(f)
+        with open("mid_counts.csv", 'a+', newline='') as output:
+            writer = csv.writer(output)
+            for line in reader:
+                onion = line[0]
+                num = line[1]
                 if onion not in domains:
                     domains.append(onion)
                 init_mid_onions.append([onion, num])
@@ -58,35 +68,37 @@ def mid_onions(filename):
                         continue
                 mid_onions[d] = count
             for k,v in mid_onions.items():
-                output.write("{} , {}\n".format(k, v))
+                writer.writerow([k,v])
 
 # Final Counter
 def final_onions(filename):
     sorted_onions = []
     with open(filename, 'r') as f:
-        unsorted_onions = [line.replace(" ", "") for line in f]
-        with open("final_counts.txt", 'a+') as output:
-            mid_onions = [u.rstrip().split(',') for u in unsorted_onions]
-            sorted_onions = sorted(mid_onions, key=lambda x: int(x[1]), reverse=True)
+        reader = csv.reader(f, delimiter=',')
+        sorted_onions = sorted(reader, key=lambda x: int(x[1]), reverse=True)
+        with open("final_counts.csv", 'a+', newline='') as output:
+            writer = csv.writer(output)
+            writer.writerow(["Onion", "Frequency"])
             for x in sorted_onions:
-                output.write("{} , {}\n".format(x[0], x[1]))
+                writer.writerow([x[0], x[1]])
+
 
 # Create the search file
 def compile_onions():
     sorted_onions = []
-    with open('final_counts.txt', 'r') as f:
-        with open("onions.txt", 'a+') as output:
+    with open('final_counts.csv', 'r') as f:
+        with open("onions.csv", 'a+') as output:
             for line in f:
                 (onion, num) = line.replace(" ", "").split(',')
                 output.write("{}\n".format(onion))
 
 if __name__ == "__main__":
-    files = glob("*.txt")
+    files = glob("*.csv")
     processors = os_processes()
     print("Now counting onions........")
     pool = Pool(processors)
     pool.map(init_onions, files)
     pool.close()
-    mid_onions('initial_counts.txt')
-    final_onions('mid_counts.txt')
-    compile_onions()
+    mid_onions('initial_counts.csv')
+    final_onions('mid_counts.csv')
+    # compile_onions()
