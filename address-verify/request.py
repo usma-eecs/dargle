@@ -22,15 +22,18 @@ for line in innie:
             line = 'http://' + line
 
         site = line.rstrip('\n')
-        r = session.get(site, allow_redirects=True, timeout=10, headers=headers)
+        print(site+" is the site, L25\n")
+        r = session.get(site, allow_redirects=True, timeout=120, headers=headers)
         # Legacy:
         #rText = str(r.text)
+        print(site+" is the site, L29\n")
         rStatus = str(r.status_code)
         outie.write(site+": "+rStatus+"\n\n")
 
     except Exception as e:
-        print(str(e))
+        #print(str(e))
         site = line.rstrip('\n')
+        print(site+" is the site, L36\n")
         rStatus = str(e.__class__.__name__)
         outie.write(site+": "+rStatus+"\n\n")
 
