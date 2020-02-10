@@ -18,6 +18,9 @@ headers['User-agent'] = "HotJava/1.1.2 FCS"
 # https://requests.readthedocs.io/en/master/user/quickstart/
 for line in innie:
     try:
+        if (line[0:3] != 'http'):
+            line = 'http://' + line
+
         site = line.rstrip('\n')
         r = session.get(site, allow_redirects=True, timeout=10, headers=headers)
         # Legacy:
