@@ -1,8 +1,9 @@
+import sys
 import requests
 
 # https://www.guru99.com/reading-and-writing-files-in-python.html
-outie = open('output.txt', 'w+')
-innie = open('input.txt', 'r')
+innie = open(sys.argv[1], 'r')
+outie = open(sys.argv[2], 'w+')
 
 # socks proxies
 session = requests.session()

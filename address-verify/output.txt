@@ -1,10 +1,12 @@
 https://api.github.com/events: 200
 
-http://reddit.com: 200
+http://reddit.com: 401
 
 https://doesnotexist.yeet: ConnectionError
 
 https://www.facebookcorewwwi.onion/: 200
 
-https://www.propub3r6espa33w.onion/: ConnectTimeout
+https://www.propub3r6espa33w.onion/: ConnectionError
+
+https://4chan.org/: 403
 
