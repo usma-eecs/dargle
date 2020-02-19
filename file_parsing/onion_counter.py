@@ -39,7 +39,8 @@ def init_onions(filename):
             writer = csv.writer(output)
             for line in reader:
                 site = line[0]
-                onion = line[1]
+                onion_url = line[1]
+                onion = urlparse("http://"+onion_url).netloc
                 file_onions.setdefault(onion, []).append(site)
             for k,v in file_onions.items():
                 writer.writerow([k, len(v)])
@@ -95,10 +96,12 @@ def compile_onions():
 if __name__ == "__main__":
     files = glob("*.csv")
     processors = os_processes()
-    print("Now counting onions........")
+    print("Initial Onion Count........")
     pool = Pool(processors)
     pool.map(init_onions, files)
     pool.close()
+    print("Mid Onion Count........")
     mid_onions('initial_counts.csv')
+    print("Final Onion Count........")
     final_onions('mid_counts.csv')
     # compile_onions()
