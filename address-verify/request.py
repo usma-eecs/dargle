@@ -1,6 +1,5 @@
 import sys
 import csv
-import sqlite3
 import threading
 import requests
 
@@ -48,6 +47,7 @@ def process_links():
                 row[0] = 'http://' + row[0]
 
             site = row[0].rstrip('\n')
+            hits = row[1]
             
             # Test code
             #print(site+" is the site, L25\n")
@@ -58,7 +58,7 @@ def process_links():
             # Test code
             # print(site+" is the site, L29\n")
             rStatus = str(r.status_code)
-            outfile.write(site+","+rStatus+"\n\n")
+            outfile.write(site+","+rStatus+","+hits+"\n")
 
         except Exception as e:
             #print(str(e))
@@ -67,7 +67,7 @@ def process_links():
             # Test code
             # print(site+" is the site, L36\n")
             rStatus = str(e.__class__.__name__)
-            outfile.write(site+","+rStatus+"\n\n")
+            outfile.write(site+","+rStatus+","+hits+"\n")
 
     infile.close()
     outfile.close()
