@@ -2,6 +2,7 @@ import sys
 import csv
 import threading
 import requests
+from datetime import datetime
 
 # innie = sys.argv[1]
 # outie = sys.argv[2]
@@ -58,7 +59,8 @@ def process_links(innie,outie,header):
             # Test code
             # print(site+" is the site, L29\n")
             rStatus = str(r.status_code)
-            outfile.write(site+","+rStatus+","+hits+"\n")
+            timestamp = datetime.now()
+            outfile.write(site+","+rStatus+","+hits+","+timestamp.strftime("%m/%d/%Y %H:%M:%S")+"\n")
 
         except Exception as e:
             #print(str(e))
@@ -67,7 +69,8 @@ def process_links(innie,outie,header):
             # Test code
             # print(site+" is the site, L36\n")
             rStatus = str(e.__class__.__name__)
-            outfile.write(site+","+rStatus+","+hits+"\n")
+            timestamp = datetime.now()
+            outfile.write(site+","+rStatus+","+hits+","+timestamp.strftime("%m/%d/%Y %H:%M:%S")+"\n")
 
     infile.close()
     outfile.close()
