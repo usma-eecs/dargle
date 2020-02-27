@@ -23,8 +23,8 @@ class Domain(Base):
 	def __repr__(self):
 		return "<Domain(domain={},status={},hits={})>".format(self.domain,self.status,self.hits)
 
-def csvTransfer(sess):
-	infile = open('output.csv','r')
+def csvTransfer(file,sess):
+	infile = open(file,'r')
 	reader = csv.reader(infile,delimiter=',')
 
 	next(reader,None)
@@ -41,13 +41,13 @@ def csvTransfer(sess):
 
 	print(sess.query(Domain).all())
 
-def dbUpdate():
+def dbUpdate(file):
 	engine = create_engine('sqlite:///dargle.sqlite')
 	session = sessionmaker()
 	session.configure(bind=engine)
 	Base.metadata.create_all(engine)
 
 	s = session()
-	csvTransfer(s)
+	csvTransfer(file,s)
 
-dbUpdate()
+# dbUpdate(file)

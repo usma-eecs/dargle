@@ -3,13 +3,12 @@ import csv
 import threading
 import requests
 
+# innie = sys.argv[1]
+# outie = sys.argv[2]
+# thread_num = int(sys.argv[3])
+# header = sys.argv[4]
 
-innie = sys.argv[1]
-outie = sys.argv[2]
-thread_num = int(sys.argv[3])
-header = sys.argv[4]
-
-def line_count():
+def line_count(innie):
     with open(innie) as f:
         for i, l in enumerate(f):
             pass
@@ -17,10 +16,11 @@ def line_count():
     print(i+1)
     return i+1
 
+# TODO
 def multi_thread():
     return 1
 
-def process_links():
+def process_links(innie,outie,header):
     # https://www.guru99.com/reading-and-writing-files-in-python.html
     infile = open(innie, 'r')
     outfile = open(outie, 'w+')
@@ -71,6 +71,7 @@ def process_links():
 
     infile.close()
     outfile.close()
+    return outie
 
-process_links()
-line_count()
+# process_links()
+# line_count()
