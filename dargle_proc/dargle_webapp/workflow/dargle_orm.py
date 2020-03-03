@@ -56,7 +56,7 @@ def csvTransfer(file,sess):
 	print(sess.query(Timestamp).all())
 
 def dbUpdate(file):
-	engine = create_engine('sqlite://../dargle.sqlite', convert_unicode=True)
+	engine = create_engine('sqlite:///dargle.sqlite', convert_unicode=True)
 	session = sessionmaker()
 	session.configure(bind=engine)
 	Base.metadata.create_all(engine)

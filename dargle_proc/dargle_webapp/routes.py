@@ -3,6 +3,8 @@ from dargle_webapp import app, db
 from dargle_webapp.models import Domain, Timestamp
 import sqlite3
 
+path = 'dargle_webapp/workflow/dargle.sqlite'
+
 @app.route("/")
 @app.route("/home")
 def home():
@@ -14,7 +16,7 @@ def about():
 
 @app.route("/tables")
 def tables():
-    con = sqlite3.connect('dargle.sqlite')
+    con = sqlite3.connect(path)
     con.row_factory = sqlite3.Row
 
     cur = con.cursor()
