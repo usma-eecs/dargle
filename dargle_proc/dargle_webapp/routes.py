@@ -16,7 +16,7 @@ def about():
 def tables():
     con = sqlite3.connect('dargle.sqlite')
     con.row_factory = sqlite3.Row
-    
+
     cur = con.cursor()
     cur.execute('SELECT * FROM domains')
 
@@ -26,3 +26,5 @@ def tables():
     rows2 = cur.fetchall();
 
     return render_template('tables.html',title='Tables',rows=rows,rows2=rows2)
+
+# https://www.tutorialspoint.com/flask/flask_sqlite.htm
