@@ -5,22 +5,22 @@ This section focuses on the data analysis of the Common Crawl Corpus
 * This directory contains the scripts to be used with extracting onions and counting the sites.
 
 ## onion_data
-1. This directory contains all data related to onions
+* This directory contains all data related to onions
     * final_counts.csv is a CSV that has all the onions and how often they were found on the clearweb
     * onions.csv is a CSV file that contains __ONLY__ the onions found on the clearweb.
     * onions_fixed.txt was a test file that failed to meet the expectations of Mr. King
 
 ## site_data
-1. This directory contains all data related to the sites onions were found on
+* This directory contains all data related to the sites onions were found on
     * initialized_site_data.csv is a CSV that has each site and a list of onions that were on the site
     * initial_site_counts.csv is a CSV file that took each site and counted the number of __UNIQUE__ onions that were on the site. (i.e. if blah.onion was found 4 times on blah.com, it only counts as 1. But if it was found on a different site, it counted for both sites (blah.com has 1 and blah2.com has 1))
     * final_sites_counts.CSV is a CSV file that has the sites and their counts in descending order
 
 ## test_files
-1. This directory has the files I used to test the scripts
+* This directory has the files I used to test the scripts
 
 ## darkweb.pptx
-1. Mid-point presentation
+* Mid-point presentation
 
 ## requirements.txt
-1. Required python libraries to install
+* Required python libraries to install
