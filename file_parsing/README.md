@@ -22,6 +22,3 @@ This section focuses on the data analysis of the Common Crawl Corpus
 
 ## darkweb.pptx
 * Mid-point presentation
-
-## requirements.txt
-* Required python libraries to install
