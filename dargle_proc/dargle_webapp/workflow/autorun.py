@@ -7,5 +7,6 @@ header = sys.argv[3]
 
 request.line_count(innie)
 
-csv = request.process_links(innie,outie,header)
+# csv = request.process_links(innie,outie,header)
+csv = outie
 dargle_orm.dbUpdate(csv)

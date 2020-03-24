@@ -16,11 +16,13 @@ class Domain(Base):
 	domain = Column(String,primary_key=True)
 	current_status = relationship("Timestamp")
 	hits = Column(Integer)
+	title = Column(String)
+
 	references = Column(String)
 	origins = Column(String)
 
 	def __repr__(self):
-		return "<Domain(domain={},hits={})>".format(self.domain,self.hits)
+		return "<Domain(domain={},title={},hits={})>".format(self.domain,self.title,self.hits)
 
 class Timestamp(Base):
 	__tablename__ = 'timestamps'
@@ -43,17 +45,21 @@ def csvTransfer(file,sess):
 		status = row[1]
 		hits = row[2]
 		timestamp = row[3]
+		title = row[4]
 
-		onion = Domain(domain=domain,hits=hits)
+		onion = Domain(domain=domain,title=title,hits=hits)
 		tstamp = Timestamp(domain=domain,timestamp=timestamp,status=status)
 		merge1 = sess.merge(onion)
 		merge2 = sess.merge(tstamp)
 
 		sess.commit()
 
+	'''
+	# For Troubleshooting:
 	print(sess.query(Domain).all())
 	print("\n")
 	print(sess.query(Timestamp).all())
+	'''
 
 def dbUpdate(file):
 	engine = create_engine('sqlite:///dargle.sqlite', convert_unicode=True)

@@ -2,6 +2,7 @@ import sys
 import csv
 import threading
 import requests
+from bs4 import BeautifulSoup
 from datetime import datetime
 
 # innie = sys.argv[1]
@@ -41,6 +42,9 @@ def process_links(innie,outie,header):
     headers = {}
     headers['User-agent'] = "HotJava/1.1.2 FCS"
 
+    x = 0
+    totallength = line_count(innie)
+
     # https://requests.readthedocs.io/en/master/user/quickstart/
     for row in in_reader:
         try:
@@ -52,15 +56,20 @@ def process_links(innie,outie,header):
             
             # Test code
             #print(site+" is the site, L25\n")
-            r = session.get(site, allow_redirects=True, timeout=10, headers=headers)
+            r = session.get(site, allow_redirects=True, timeout=3, headers=headers)
             # Legacy:
             #rText = str(r.text)
             
+            soup = BeautifulSoup(r.content,'html.parser')
+
             # Test code
             # print(site+" is the site, L29\n")
             rStatus = str(r.status_code)
             timestamp = datetime.now()
-            outfile.write(site+","+rStatus+","+hits+","+timestamp.strftime("%m/%d/%Y %H:%M:%S")+"\n")
+            outfile.write(site+","+rStatus+","+hits+","+timestamp.strftime("%m/%d/%Y %H:%M:%S")+","+soup.title.string+"\n")
+            
+            print("Progress: {} out of {} \n".format(x,totallength))
+            x+=1
 
         except Exception as e:
             #print(str(e))
@@ -70,7 +79,10 @@ def process_links(innie,outie,header):
             # print(site+" is the site, L36\n")
             rStatus = str(e.__class__.__name__)
             timestamp = datetime.now()
-            outfile.write(site+","+rStatus+","+hits+","+timestamp.strftime("%m/%d/%Y %H:%M:%S")+"\n")
+            outfile.write(site+","+rStatus+","+hits+","+timestamp.strftime("%m/%d/%Y %H:%M:%S")+",N/A\n")
+
+            print("Progress: {} out of {} \n".format(x,totallength))
+            x+=1
 
     infile.close()
     outfile.close()
