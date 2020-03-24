@@ -24,9 +24,18 @@ def tables():
 
     rows = cur.fetchall();
 
+    return render_template('tables.html',title='Tables',rows=rows)
+
+@app.route("/tables2")
+def tables2():
+    con = sqlite3.connect(path)
+    con.row_factory = sqlite3.Row
+
+    cur = con.cursor()
     cur.execute('SELECT * FROM timestamps')
+    
     rows2 = cur.fetchall();
 
-    return render_template('tables.html',title='Tables',rows=rows,rows2=rows2)
+    return render_template('tables2.html',title='Tables2',rows2=rows2)
 
 # https://www.tutorialspoint.com/flask/flask_sqlite.htm
