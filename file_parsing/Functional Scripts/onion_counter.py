@@ -5,9 +5,6 @@ from multiprocessing import Pool, cpu_count # To utilize multiple processors to 
 from subprocess import Popen, PIPE # Make the script universal
 from sys import platform # Determine system
 
-# Parse out domains onions were found on
-domain_regex = r'[a-zA-Z0-9][a-zA-Z0-9-]{1,}[a-zA-Z0-9](\.[a-zA-Z]{2,})+'
-
 # Determine OS and number of processes to use
 def os_processes():
     MAX_PROCESSES = 0
