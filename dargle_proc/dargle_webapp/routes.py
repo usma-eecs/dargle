@@ -14,7 +14,7 @@ def home():
 def about():
     return render_template('about.html', title='About')
 
-@app.route("/tables")
+@app.route("/domains")
 def tables():
     con = sqlite3.connect(path)
     con.row_factory = sqlite3.Row
@@ -24,9 +24,9 @@ def tables():
 
     rows = cur.fetchall();
 
-    return render_template('tables.html',title='Tables',rows=rows)
+    return render_template('domains.html',title='Domains',rows=rows)
 
-@app.route("/tables2")
+@app.route("/timestamps")
 def tables2():
     con = sqlite3.connect(path)
     con.row_factory = sqlite3.Row
@@ -36,6 +36,6 @@ def tables2():
     
     rows2 = cur.fetchall();
 
-    return render_template('tables2.html',title='Tables2',rows2=rows2)
+    return render_template('timestamps.html',title='Timestamps',rows2=rows2)
 
 # https://www.tutorialspoint.com/flask/flask_sqlite.htm
