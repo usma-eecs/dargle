@@ -3,6 +3,7 @@ This section focuses on the data analysis of the Common Crawl Corpus
 
 ## Functional Scripts
 * This directory contains the scripts to be used with extracting onions and counting the sites.
+* To use, simply copy these scripts to a directory that contains your Common Crawl files.
 
 ## onion_data
 * This directory contains all data related to onions
