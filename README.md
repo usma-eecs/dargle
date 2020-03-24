@@ -10,5 +10,11 @@ The Open-Sourced Dark Web Search Engine
     2.	Automatically determine the state of each URL (e.g. up, down, non-existent).
     3. Create an interface for searching through indexed hidden service URLs.  
 
+## How to Use this App
+
+- Ensure you have SQLAlchemy, Flask, SQLite3, and Python installed
+- Navigate to `dargle/dargle_proc`
+- Run the command `python run.py`
+
 ## Grand Unified Diagram
 ![](Dargle.png)
