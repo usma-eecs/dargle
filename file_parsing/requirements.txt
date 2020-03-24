@@ -1,1 +1,2 @@
 warc3-wet >= 0.2.3 
+tldextract >= 2.2.2
