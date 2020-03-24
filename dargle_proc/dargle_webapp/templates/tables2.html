@@ -1,21 +1,20 @@
 {% extends "layout.html" %}
 
 {% block content %}
-    <h2>Domains</h2>
+    <h2>Status & Timestamps</h2>
     <table class="table table-striped table-bordered table-dark">
         <thead class="font-weight-bold">
-            <td>Title</td>
             <td>Domain</td>
-            <td>Hits</td>
+            <td>Status</td>
+            <td>Timestamp</td>
         </thead>
 
-        {% for row in rows %}
+        {% for row in rows2 %}
             <tr>
-                <td>{{row["title"]}}</td>
                 <td>{{row["domain"]}}</td>
-                <td>{{row["hits"]}}</td>
+                <td>{{row["status"]}}</td>
+                <td>{{row["timestamp"]}}</td>
             </tr>
         {% endfor %}
     </table>
-
 {% endblock content %}

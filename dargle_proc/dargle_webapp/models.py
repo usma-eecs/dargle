@@ -10,9 +10,10 @@ class Domain(db.Model):
     hits = db.Column(db.Integer)
     references = db.Column(db.String)
     origins = db.Column(db.String)
+    title = db.Column(db.String)
 
     def __repr__(self):
-        return "<Domain(domain={},hits={})>".format(self.domain,self.hits)
+        return "<Domain(domain={},title={},hits={})>".format(self.domain,self.title,self.hits)
 
 class Timestamp(db.Model):
     __tablename__ = 'timestamps'
