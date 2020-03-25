@@ -15,26 +15,28 @@ def about():
     return render_template('about.html', title='About')
 
 @app.route("/domains")
-def tables():
+def domains():
+    per_page = 50
     con = sqlite3.connect(path)
     con.row_factory = sqlite3.Row
 
     cur = con.cursor()
     cur.execute('SELECT * FROM domains')
 
-    rows = cur.fetchall();
+    rows = cur.fetchall()
 
     return render_template('domains.html',title='Domains',rows=rows)
 
 @app.route("/timestamps")
-def tables2():
+def timestamps():
+    per_page = 50
     con = sqlite3.connect(path)
     con.row_factory = sqlite3.Row
 
     cur = con.cursor()
     cur.execute('SELECT * FROM timestamps')
     
-    rows2 = cur.fetchall();
+    rows2 = cur.fetchall()
 
     return render_template('timestamps.html',title='Timestamps',rows2=rows2)
 
