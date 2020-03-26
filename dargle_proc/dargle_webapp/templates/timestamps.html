@@ -2,21 +2,25 @@
 
 {% block content %}
     <h2>Status & Timestamps</h2>
+    {{ pagination.links }}
     <table class="table table-striped table-bordered table-dark" id="timestamp-table">
         <thead class="font-weight-bold">
-            <td>Domain</td>
-            <td>Status</td>
-            <td>Timestamp</td>
+          <th>Index</th>
+          <th onclick="sortTable(1)">Domain</th>
+          <th onclick="sortTable(2)">Status</th>
+          <th onclick="sortTable(3)">Timestamp</th>
         </thead>
 
-        {% for row in rows2 %}
+        {% for row in rows %}
             <tr>
-                <td>{{row["domain"]}}</td>
-                <td>{{row["status"]}}</td>
-                <td>{{row["timestamp"]}}</td>
+              <td>{{ loop.index + (page - 1) * per_page }}</td>
+              <td>{{row["domain"]}}</td>
+              <td>{{row["status"]}}</td>
+              <td>{{row["timestamp"]}}</td>
             </tr>
         {% endfor %}
     </table>
+    {{ pagination.links }}
 
     <script>
         function sortTable(n) {
