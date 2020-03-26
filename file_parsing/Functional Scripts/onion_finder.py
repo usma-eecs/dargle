@@ -6,10 +6,10 @@ from multiprocessing import Pool, cpu_count # To utilize multiple processors to 
 from subprocess import Popen, PIPE # Make the script universal
 from sys import platform # Determine system
 from os.path import splitext # Used in tracking
-from time import time
 
 # Regex for onions 
-onion_regex = r'([a-zA-Z2-7]{16}|[a-zA-Z2-7]{56})\.onion?(?:\/([^/ \\\s]*))?'
+# onion_regex = r'([a-zA-Z2-7]{16}|[a-zA-Z2-7]{56})\.onion?(?:\/([^/ \\\s]*))?'
+onion_regex = r'(?:[a-zA-Z2-7]{16}|[a-zA-Z2-7]{56})\.onion'
 onion = re.compile(onion_regex, re.IGNORECASE)
 
 # Determine OS and number of processes to use
@@ -32,6 +32,15 @@ def os_processes():
         MAX_PROCESSES = cpu_count()
     return MAX_PROCESSES
 
+# Redefine findall
+def findall(pattern, string):
+    while True:
+        match = re.search(pattern, string)
+        if not match:
+            break
+        yield match.group(0)
+        string = string[match.end():]
+
 # Find onions in data
 def find_onions(filename):
     global onion
@@ -43,19 +52,16 @@ def find_onions(filename):
             for record in f:
                 url = str(record.header.get('WARC-Target-URI', None))
                 data = str(record.payload.read())
-                url_match = onion.search(url)
-                payload_match = onion.search(data)
+                url_match = findall(onion, url)
+                payload_match = findall(onion, data)
                 if url_match:
-                    match = url_match.group(0)
-                    file_onions[url] = []
-                    file_onions[url].append(match)
+                    onions = list(url_match)
+                    for o in onions:
+                        writer.writerow([url, o])
                 if payload_match:
-                    match = payload_match.group(0)
-                    file_onions[url] = []
-                    file_onions[url].append(match)
-            for k,v in file_onions.items():
-                for i in v:
-                    writer.writerow([k, i])
+                    onions = list(payload_match)
+                    for o in onions:
+                        writer.writerow([url, o])
 
 if __name__ == "__main__":
     files = glob("*.warc.wet.gz")
@@ -66,11 +72,8 @@ if __name__ == "__main__":
     if len(files) == 0:
         print("All Common Crawl Files have been searched!")
     else:
-        start = time()
         processors = os_processes()
         print("Searching for onions.........")
         pool = Pool(processors)
         pool.map(find_onions, files)
         pool.close()
-        end = time()
-        print("Time Elapsed: ", end - start)
