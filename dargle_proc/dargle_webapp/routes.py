@@ -35,6 +35,7 @@ def about():
 def domains():
     page, per_page, offset = get_page_args(page_parameter='page',
                                            per_page_parameter='per_page')
+    per_page = 25
     rows = query("domain")
     total = len(rows)
     pagination_rows = get_rows(rows, offset=offset, per_page=per_page)
@@ -47,6 +48,7 @@ def domains():
 def timestamps():
     page, per_page, offset = get_page_args(page_parameter='page',
                                            per_page_parameter='per_page')
+    per_page = 25
     rows = query("timestamps")
     total = len(rows)
     pagination_rows = get_rows(rows, offset=offset, per_page=per_page)
