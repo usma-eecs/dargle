@@ -24,6 +24,15 @@ class Domain(Base):
 	def __repr__(self):
 		return "<Domain(domain={},title={},hits={})>".format(self.domain,self.title,self.hits)
 
+class Source(Base):
+	__tablename__ = 'sources'
+
+	domain = Column(String,primary_key=True)
+	unique_onions = Column(Integer)
+
+	def __repr__(self):
+		return "<Source(domain={},hits={}>".format(self.domain,self.hits)
+
 class Timestamp(Base):
 	__tablename__ = 'timestamps'
 
@@ -34,13 +43,16 @@ class Timestamp(Base):
 	def __repr__(self):
 		return "<Timestamp(domain={},timestamp={},status={}>".format(self.domain,self.timestamp,self.status)
 
-def csvTransfer(file,sess):
-	infile = open(file,'r')
-	reader = csv.reader(infile,delimiter=',')
+def csvTransfer(onions,domains,sess):
+	domain_in = open(domains,'r')
+	domain_reader = csv.reader(domain_in,delimiter=',')
 
-	next(reader,None)
+	onion_in = open(onions,'r')
+	onion_reader = csv.reader(onion_in,delimiter=',')
 
-	for row in reader:
+	next(domain_reader,None)
+
+	for row in onion_reader:
 		domain = row[0]
 		status = row[1]
 		hits = row[2]
@@ -54,6 +66,15 @@ def csvTransfer(file,sess):
 
 		sess.commit()
 
+	for row in domain_reader:
+		domain = row[0]
+		hits = row[1]
+
+		domain = Source(domain=domain,unique_onions=hits)
+		merge1 = sess.merge(domain)
+
+		sess.commit()
+
 	'''
 	# For Troubleshooting:
 	print(sess.query(Domain).all())
@@ -61,13 +82,13 @@ def csvTransfer(file,sess):
 	print(sess.query(Timestamp).all())
 	'''
 
-def dbUpdate(file):
+def dbUpdate(onion,domain):
 	engine = create_engine('sqlite:///dargle.sqlite', convert_unicode=True)
 	session = sessionmaker()
 	session.configure(bind=engine)
 	Base.metadata.create_all(engine)
 
 	s = session()
-	csvTransfer(file,s)
+	csvTransfer(onion,domain,s)
 
 # dbUpdate(file)
