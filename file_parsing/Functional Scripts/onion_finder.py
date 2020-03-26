@@ -44,7 +44,6 @@ def findall(pattern, string):
 # Find onions in data
 def find_onions(filename):
     global onion
-    file_onions = {}
     with warc.open(filename) as f:
         with open("{}.csv".format(filename.strip(".warc.wet.gz")), 'w', newline='') as output:
             writer = csv.writer(output)
