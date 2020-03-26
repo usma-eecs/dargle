@@ -66,7 +66,7 @@ def final_sites(filename):
     with open(filename, 'r') as f:
         reader = csv.reader(f, delimiter=',')
         sorted_sites = sorted(reader, key=lambda x: int(x[1]), reverse=True)
-        with open("final_sites_counts.csv", 'a+', newline='') as output:
+        with open("site_counts.csv", 'a+', newline='') as output:
             writer = csv.writer(output)
             for x in sorted_sites:
                 writer.writerow([x[0], x[1]])
