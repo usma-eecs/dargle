@@ -1,11 +1,12 @@
 import csv # Output and input format
-import tldextract
+import tldextract # Find site domain
 from urllib.parse import urlparse # Find domain
 from glob import glob # To find all files in specified directory
 from multiprocessing import Pool, cpu_count # To utilize multiple processors to speed up the script
 from subprocess import Popen, PIPE # Make the script universal
 from sys import platform # Determine system
 from collections import defaultdict
+from os import remove
 
 # Determine OS and number of processes to use
 def os_processes():
@@ -44,7 +45,8 @@ def init_sites(filename):
                 onion = urlparse("http://"+onion_url).netloc
                 file_onions.setdefault(site, []).append(onion)
             for k,v in file_onions.items():
-                writer.writerow([k, v,])#''.join(list(set(v)))])
+                writer.writerow([k, v,])
+    remove("initialized_site_data.csv")
 
 # Mid-Counter
 def mid_sites(filename):
@@ -70,6 +72,7 @@ def final_sites(filename):
             writer = csv.writer(output)
             for x in sorted_sites:
                 writer.writerow([x[0], x[1]])
+    remove("initial_site_counts.csv")
 
 if __name__ == "__main__":
     files = glob("*.csv")
