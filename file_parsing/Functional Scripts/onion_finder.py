@@ -72,9 +72,8 @@ if __name__ == "__main__":
     if len(files) == 0:
         print("All Common Crawl Files have been searched!")
     else:
-        start = time()
         processors = os_processes()
+        print("Searching for onions.........")
         pool = Pool(processors)
         pool.map(find_onions, files)
         pool.close()
-        end = time()
