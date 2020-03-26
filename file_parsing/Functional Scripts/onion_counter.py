@@ -74,7 +74,7 @@ def final_onions(filename):
     with open(filename, 'r') as f:
         reader = csv.reader(f, delimiter=',')
         sorted_onions = sorted(reader, key=lambda x: int(x[1]), reverse=True)
-        with open("final_counts.csv", 'a+', newline='') as output:
+        with open("onion_counts.csv", 'a+', newline='') as output:
             writer = csv.writer(output)
             # writer.writerow(["Onion", "Frequency"])
             for x in sorted_onions:
