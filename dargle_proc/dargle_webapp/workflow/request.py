@@ -29,6 +29,7 @@ def process_links(innie,outie,header):
 
     # Read in CSV, skip header
     in_reader = csv.reader(infile,delimiter=',')
+    out_writer = csv.writer(outfile)
     if header == 'true':
         next(in_reader,None)
 
@@ -61,14 +62,15 @@ def process_links(innie,outie,header):
             #rText = str(r.text)
             
             soup = BeautifulSoup(r.content,'html.parser')
+            title = soup.title.string.decode("utf-8")
 
             # Test code
             # print(site+" is the site, L29\n")
             rStatus = str(r.status_code)
             timestamp = datetime.now()
-            outfile.write(site+","+rStatus+","+hits+","+timestamp.strftime("%m/%d/%Y %H:%M:%S")+","+soup.title.string+"\n")
-            
-            print("Progress: {} out of {} \n".format(x,totallength))
+            outfile.writerow([site,rStatus,hits,timestamp.strftime("%m/%d/%Y %H:%M:%S"),title])
+
+            print("Progress: {} out of {}".format(x,totallength))
             x+=1
 
         except Exception as e:
@@ -79,9 +81,9 @@ def process_links(innie,outie,header):
             # print(site+" is the site, L36\n")
             rStatus = str(e.__class__.__name__)
             timestamp = datetime.now()
-            outfile.write(site+","+rStatus+","+hits+","+timestamp.strftime("%m/%d/%Y %H:%M:%S")+",N/A\n")
+            outfile.writerow([site,rStatus,hits,timestamp.strftime("%m/%d/%Y %H:%M:%S"),"N/A"])
 
-            print("Progress: {} out of {} \n".format(x,totallength))
+            print("Progress: {} out of {}".format(x,totallength))
             x+=1
 
     infile.close()
