@@ -57,12 +57,12 @@ def process_links(innie,outie,header):
             
             # Test code
             #print(site+" is the site, L25\n")
-            r = session.get(site, allow_redirects=True, timeout=3, headers=headers)
+            r = session.get(site, allow_redirects=True, timeout=5, headers=headers)
             # Legacy:
             #rText = str(r.text)
             
             soup = BeautifulSoup(r.content,'html.parser')
-            title = soup.title.string.decode("utf-8")
+            title = soup.title.string.encode("utf-8")
 
             # Test code
             # print(site+" is the site, L29\n")

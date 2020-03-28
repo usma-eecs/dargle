@@ -17,6 +17,8 @@ def query(table):
         cur.execute('SELECT * FROM domains')
     elif table == 'timestamps':
         cur.execute('SELECT * FROM timestamps')
+    elif table == 'sources':
+        cur.execute('SELECT * from sources')
     else:
         return
     return cur.fetchall()

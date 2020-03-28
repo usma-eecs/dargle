@@ -28,7 +28,7 @@ class Source(Base):
 	__tablename__ = 'sources'
 
 	domain = Column(String,primary_key=True)
-	unique_onions = Column(Integer)
+	hits = Column(Integer)
 
 	def __repr__(self):
 		return "<Source(domain={},hits={}>".format(self.domain,self.hits)
@@ -50,6 +50,7 @@ def csvTransfer(onions,domains,sess):
 	onion_in = open(onions,'r')
 	onion_reader = csv.reader(onion_in,delimiter=',')
 
+	next(onion_reader,None)
 	next(domain_reader,None)
 
 	for row in onion_reader:
@@ -70,7 +71,7 @@ def csvTransfer(onions,domains,sess):
 		domain = row[0]
 		hits = row[1]
 
-		domain = Source(domain=domain,unique_onions=hits)
+		domain = Source(domain=domain,hits=hits)
 		merge1 = sess.merge(domain)
 
 		sess.commit()
@@ -82,6 +83,21 @@ def csvTransfer(onions,domains,sess):
 	print(sess.query(Timestamp).all())
 	'''
 
+'''
+def write(domains,sess):
+	domain_in = open(domains,'r')
+	domain_reader = csv.reader(domain_in,delimiter=',')
+
+	for row in domain_reader:
+		domain = row[0]
+		hits = row[1]
+
+		domain = Source(domain=domain,hits=hits)
+		merge1 = sess.merge(domain)
+
+		sess.commit()
+'''
+
 def dbUpdate(onion,domain):
 	engine = create_engine('sqlite:///dargle.sqlite', convert_unicode=True)
 	session = sessionmaker()
@@ -90,5 +106,3 @@ def dbUpdate(onion,domain):
 
 	s = session()
 	csvTransfer(onion,domain,s)
-
-# dbUpdate(file)
