@@ -57,7 +57,7 @@ def process_links(innie,outie,header):
             
             # Test code
             #print(site+" is the site, L25\n")
-            r = session.get(site, allow_redirects=True, timeout=5, headers=headers)
+            r = session.get(site, allow_redirects=True, timeout=3, headers=headers)
             # Legacy:
             #rText = str(r.text)
             
