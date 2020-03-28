@@ -14,11 +14,11 @@ def query(table):
     con.row_factory = sqlite3.Row
     cur = con.cursor()
     if table == 'domain':
-        cur.execute('SELECT * FROM domains')
+        cur.execute('SELECT * FROM domains ORDER BY hits DESC')
     elif table == 'timestamps':
         cur.execute('SELECT * FROM timestamps')
     elif table == 'sources':
-        cur.execute('SELECT * from sources')
+        cur.execute('SELECT * from sources ORDER BY hits DESC')
     else:
         return
     return cur.fetchall()
