@@ -33,13 +33,11 @@ def about():
 
 @app.route("/domains")
 def domains():
-    page, per_page, offset = get_page_args(page_parameter='page',
-                                           per_page_parameter='per_page')
-    per_page = 25
+    page, per_page, offset = get_page_args()
     rows = query("domain")
     total = len(rows)
     pagination_rows = get_rows(rows, offset=offset, per_page=per_page)
-    pagination = Pagination(page=page, per_page=per_page, total=total,
+    pagination = Pagination(page=page, total=total,
                             css_framework='bootstrap4')
     return render_template('domains.html', title='Domains', rows=pagination_rows,
                             page=page, per_page=per_page, pagination=pagination)
@@ -48,7 +46,7 @@ def domains():
 def timestamps():
     page, per_page, offset = get_page_args(page_parameter='page',
                                            per_page_parameter='per_page')
-    per_page = 25
+    per_page = 20
     rows = query("timestamps")
     total = len(rows)
     pagination_rows = get_rows(rows, offset=offset, per_page=per_page)
