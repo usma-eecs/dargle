@@ -54,7 +54,7 @@ def csvTransfer(onions,domains,sess):
 	next(domain_reader,None)
 
 	for row in onion_reader:
-		domain = row[0]
+		domain = row[0].strip()
 		status = row[1]
 		hits = row[2]
 		timestamp = row[3]
@@ -68,7 +68,7 @@ def csvTransfer(onions,domains,sess):
 		sess.commit()
 
 	for row in domain_reader:
-		domain = row[0]
+		domain = row[0].strip()
 		hits = row[1]
 
 		domain = Source(domain=domain,hits=hits)
@@ -84,9 +84,12 @@ def csvTransfer(onions,domains,sess):
 	'''
 
 '''
+# For troubleshooting
 def write(domains,sess):
 	domain_in = open(domains,'r')
 	domain_reader = csv.reader(domain_in,delimiter=',')
+
+	next(domain_reader,None)
 
 	for row in domain_reader:
 		domain = row[0]
