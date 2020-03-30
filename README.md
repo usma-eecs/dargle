@@ -14,7 +14,7 @@ The Open-Sourced Dark Web Search Engine
 
 - Ensure you have SQLAlchemy, Flask, SQLite3, and Python installed
 - Navigate to `dargle/dargle_proc`
-- Run the command `python run.py`
+- Run the command `python app.py`
 
 ## Grand Unified Diagram
 ![](Dargle.png)
