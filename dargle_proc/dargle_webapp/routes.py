@@ -1,27 +1,38 @@
 from flask import render_template, url_for, request
 from flask_paginate import Pagination, get_page_args
 from dargle_webapp import app, db
-from dargle_webapp.models import Domain, Timestamp
+# from dargle_webapp.models import Domain, Timestamp
+from dargle_webapp.workflow.dargle_orm import Base, Domain, Timestamp, Source
+from sqlalchemy import create_engine
+from sqlalchemy.orm import sessionmaker
 import sqlite3
 
 path = 'dargle_webapp/workflow/dargle.sqlite'
+engine = create_engine(f"sqlite:///{path}")
+Base.metadata.bind = engine
+DBSession = sessionmaker()
+DBSession.bind = engine
+session = DBSession()
 
 def get_rows(table, offset=0, per_page=20):
     return table[offset: offset + per_page]
 
 def query(table):
-    con = sqlite3.connect(path)
-    con.row_factory = sqlite3.Row
-    cur = con.cursor()
+    # con = sqlite3.connect(path)
+    # con.row_factory = sqlite3.Row
+    # cur = con.cursor()
     if table == 'domain':
-        cur.execute('SELECT * FROM domains ORDER BY hits DESC')
+        # cur.execute('SELECT * FROM domains ORDER BY hits DESC')
+        return session.query(Domain).all()
     elif table == 'timestamps':
-        cur.execute('SELECT * FROM timestamps')
+        # cur.execute('SELECT * FROM timestamps')
+        return session.query(Timestamp).all()
     elif table == 'sources':
-        cur.execute('SELECT * from sources ORDER BY hits DESC')
+        # cur.execute('SELECT * from sources ORDER BY hits DESC')
+        return session.query(Source).all()
     else:
         return
-    return cur.fetchall()
+    # return cur.fetchall()
 
 
 @app.route("/")
