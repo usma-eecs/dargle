@@ -4,6 +4,7 @@ from glob import glob # To find all files in specified directory
 from multiprocessing import Pool, cpu_count # To utilize multiple processors to speed up the script
 from subprocess import Popen, PIPE # Make the script universal
 from sys import platform # Determine system
+from os import remove # Clean up after counting
 
 # Determine OS and number of processes to use
 def os_processes():
@@ -74,9 +75,8 @@ def final_onions(filename):
     with open(filename, 'r') as f:
         reader = csv.reader(f, delimiter=',')
         sorted_onions = sorted(reader, key=lambda x: int(x[1]), reverse=True)
-        with open("onion_counts.csv", 'a+', newline='') as output:
+        with open("final_counts.csv", 'a+', newline='') as output:
             writer = csv.writer(output)
-            # writer.writerow(["Onion", "Frequency"])
             for x in sorted_onions:
                 writer.writerow([x[0], x[1]])
 
@@ -99,7 +99,9 @@ if __name__ == "__main__":
     pool.close()
     print("Mid Onion Count........")
     mid_onions('initial_counts.csv')
+    remove('initial_counts.csv')
     print("Final Onion Count........")
     final_onions('mid_counts.csv')
+    remove('mid_counts.csv')
     print("Compiling Onions........")
     compile_onions()
