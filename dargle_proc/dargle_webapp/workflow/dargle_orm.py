@@ -28,7 +28,7 @@ class Source(Base):
 	__tablename__ = 'sources'
 
 	domain = Column(String,primary_key=True)
-	unique_onions = Column(Integer)
+	hits = Column(Integer)
 
 	def __repr__(self):
 		return "<Source(domain={},hits={}>".format(self.domain,self.hits)
@@ -44,34 +44,43 @@ class Timestamp(Base):
 		return "<Timestamp(domain={},timestamp={},status={}>".format(self.domain,self.timestamp,self.status)
 
 def csvTransfer(onions,domains,sess):
-	domain_in = open(domains,'r')
+	domain_in = open(domains,'r',encoding='utf8')
 	domain_reader = csv.reader(domain_in,delimiter=',')
 
-	onion_in = open(onions,'r')
+	onion_in = open(onions,'r',encoding='utf8')
 	onion_reader = csv.reader(onion_in,delimiter=',')
 
-	next(domain_reader,None)
+	#next(onion_reader,None)
+	#next(domain_reader,None)
 
+	# Iterate through CSV reader for Onions File
 	for row in onion_reader:
+		# Assign each item in row to associated field in db
 		domain = row[0]
 		status = row[1]
 		hits = row[2]
 		timestamp = row[3]
 		title = row[4]
 
+		# Troubleshooting line
+		#print(domain)
+
+		# Create row object for Domain & Tstamp db
 		onion = Domain(domain=domain,title=title,hits=hits)
 		tstamp = Timestamp(domain=domain,timestamp=timestamp,status=status)
+		# Merge into session and commit changes
 		merge1 = sess.merge(onion)
 		merge2 = sess.merge(tstamp)
 
 		sess.commit()
 
+	# Refer to L57-75
 	for row in domain_reader:
 		domain = row[0]
 		hits = row[1]
 
-		domain = Source(domain=domain,unique_onions=hits)
-		merge1 = sess.merge(domain)
+		domain = Source(domain=domain,hits=hits)
+		merge3 = sess.merge(domain)
 
 		sess.commit()
 
@@ -82,13 +91,29 @@ def csvTransfer(onions,domains,sess):
 	print(sess.query(Timestamp).all())
 	'''
 
+'''
+# For troubleshooting
+def write(domains,sess):
+	domain_in = open(domains,'r')
+	domain_reader = csv.reader(domain_in,delimiter=',')
+
+	next(domain_reader,None)
+
+	for row in domain_reader:
+		domain = row[0]
+		hits = row[1]
+
+		domain = Source(domain=domain,hits=hits)
+		merge1 = sess.merge(domain)
+
+		sess.commit()
+'''
+
 def dbUpdate(onion,domain):
-	engine = create_engine('sqlite:///dargle.sqlite', convert_unicode=True)
+	engine = create_engine('sqlite:///dargle.sqlite',convert_unicode=True)
 	session = sessionmaker()
 	session.configure(bind=engine)
 	Base.metadata.create_all(engine)
 
 	s = session()
 	csvTransfer(onion,domain,s)
-
-# dbUpdate(file)
