@@ -62,13 +62,13 @@ def process_links(innie,outie,header):
             #rText = str(r.text)
             
             soup = BeautifulSoup(r.content,'html.parser')
-            title = soup.title.string.decode("utf-8")
+            title = soup.title.string.encode("utf-8")
 
             # Test code
             # print(site+" is the site, L29\n")
             rStatus = str(r.status_code)
             timestamp = datetime.now()
-            outfile.writerow([site,rStatus,hits,timestamp.strftime("%m/%d/%Y %H:%M:%S"),title])
+            out_writer.writerow([site,rStatus,hits,timestamp.strftime("%m/%d/%Y %H:%M:%S"),title])
 
             print("Progress: {} out of {}".format(x,totallength))
             x+=1
@@ -81,7 +81,7 @@ def process_links(innie,outie,header):
             # print(site+" is the site, L36\n")
             rStatus = str(e.__class__.__name__)
             timestamp = datetime.now()
-            outfile.writerow([site,rStatus,hits,timestamp.strftime("%m/%d/%Y %H:%M:%S"),"N/A"])
+            out_writer.writerow([site,rStatus,hits,timestamp.strftime("%m/%d/%Y %H:%M:%S"),"N/A"])
 
             print("Progress: {} out of {}".format(x,totallength))
             x+=1
