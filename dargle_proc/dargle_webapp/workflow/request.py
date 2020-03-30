@@ -62,9 +62,7 @@ def process_links(innie,outie,header):
             #rText = str(r.text)
             
             soup = BeautifulSoup(r.content,'html.parser')
-            #title = soup.title.string.encode("utf-8")
-            #title.replace(',','').replace(r'\n','')
-
+            title = soup.title.string.encode("utf-8")
 
             # Test code
             # print(site+" is the site, L29\n")
