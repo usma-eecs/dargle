@@ -1,14 +1,18 @@
-from flask import render_template, url_for, request
+from flask import render_template, url_for, request, json
 from flask_paginate import Pagination, get_page_args
 from dargle_webapp import app, db
 # from dargle_webapp.models import Domain, Timestamp
 from dargle_webapp.workflow.dargle_orm import Base, Domain, Timestamp, Source
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker, Query
-import sqlite3
+from elasticsearch import Elasticsearch
+from elasticsearch.helpers import bulk
+
+import sqlite3, json
+import pandas as pd
 
 path = 'dargle_webapp/workflow/dargle.sqlite'
-
+con = create_engine(f"sqlite:///{path}")
 
 def get_rows(table, offset=0, per_page=20):
     return table[offset: offset + per_page]
@@ -17,7 +21,6 @@ def query(table):
     # con = sqlite3.connect(path)
     # con.row_factory = sqlite3.Row
     # cur = con.cursor()
-    con = create_engine(f"sqlite:///{path}")
     con.connect()
     if table == 'domain':
         # cur.execute('SELECT * FROM domains ORDER BY hits DESC')
@@ -31,7 +34,6 @@ def query(table):
     else:
         return
     # return cur.fetchall()
-
 
 @app.route("/")
 @app.route("/home")
@@ -77,5 +79,24 @@ def domain_sources():
     #                         css_framework='bootstrap4')
     return render_template('domain_sources.html', title='Sources', rows=rows)#,
                             # page=page, per_page=per_page, pagination=pagination)
+
+@app.route('/search', methods=['GET','POST'])
+def search():
+    dbsession = sessionmaker(bind=con)
+    session = dbsession()
+    if request.method == "POST":
+        item = request.form['domain']
+
+        query = session.query().filter(Domain.domain.like(item),
+            Domain.title.like(item)).all()
+        session.commit()
+
+        if len(query)==0 and item=='all':
+            query = session.query().filter(Domain.domain.like(item),
+                Domain.title.like(item)).all()
+            session.commit()
+
+        return render_template('search.html', data=query)
+    return render_template('search.html')
 
 # https://www.tutorialspoint.com/flask/flask_sqlite.htm
