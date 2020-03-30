@@ -53,22 +53,28 @@ def csvTransfer(onions,domains,sess):
 	#next(onion_reader,None)
 	#next(domain_reader,None)
 
+	# Iterate through CSV reader for Onions File
 	for row in onion_reader:
+		# Assign each item in row to associated field in db
 		domain = row[0]
 		status = row[1]
 		hits = row[2]
 		timestamp = row[3]
 		title = row[4]
 
-		print(domain)
+		# Troubleshooting line
+		#print(domain)
 
+		# Create row object for Domain & Tstamp db
 		onion = Domain(domain=domain,title=title,hits=hits)
 		tstamp = Timestamp(domain=domain,timestamp=timestamp,status=status)
+		# Merge into session and commit changes
 		merge1 = sess.merge(onion)
 		merge2 = sess.merge(tstamp)
 
 		sess.commit()
 
+	# Refer to L57-75
 	for row in domain_reader:
 		domain = row[0]
 		hits = row[1]
