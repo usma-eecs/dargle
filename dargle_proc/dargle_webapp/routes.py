@@ -12,7 +12,7 @@ import sqlite3, json
 import pandas as pd
 
 path = 'dargle_webapp/workflow/dargle.sqlite'
-con = create_engine(f"sqlite:///{path}")
+engine = create_engine(f"sqlite:///{path}")
 
 def get_rows(table, offset=0, per_page=20):
     return table[offset: offset + per_page]
@@ -21,16 +21,16 @@ def query(table):
     # con = sqlite3.connect(path)
     # con.row_factory = sqlite3.Row
     # cur = con.cursor()
-    con.connect()
+    engine.connect()
     if table == 'domain':
         # cur.execute('SELECT * FROM domains ORDER BY hits DESC')
-        return con.execute('SELECT * FROM domains ORDER BY hits DESC')
+        return engine.execute('SELECT * FROM domains ORDER BY hits DESC')
     elif table == 'timestamps':
         # cur.execute('SELECT * FROM timestamps')
-        return con.execute('SELECT * FROM timestamps')
+        return engine.execute('SELECT * FROM timestamps')
     elif table == 'sources':
         # cur.execute('SELECT * from sources ORDER BY hits DESC')
-        return con.execute('SELECT * from sources ORDER BY hits DESC')
+        return engine.execute('SELECT * from sources ORDER BY hits DESC')
     else:
         return
     # return cur.fetchall()
@@ -82,17 +82,17 @@ def domain_sources():
 
 @app.route('/search', methods=['GET','POST'])
 def search():
-    dbsession = sessionmaker(bind=con)
+    dbsession = sessionmaker(bind=engine)
     session = dbsession()
     if request.method == "POST":
         item = request.form['domain']
 
-        query = session.query().filter(Domain.domain.like(item),
+        query = session.query(Domain).filter(Domain.domain.like(f'%{item}%'),
             Domain.title.like(item)).all()
         session.commit()
 
         if len(query)==0 and item=='all':
-            query = session.query().filter(Domain.domain.like(item),
+            query = session.query(Domain).filter(Domain.domain.like(f'%{item}%'),
                 Domain.title.like(item)).all()
             session.commit()
 
