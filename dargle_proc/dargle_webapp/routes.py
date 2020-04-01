@@ -85,7 +85,6 @@ def search():
     if request.method == "POST":
         item = request.form['domain']
         if not item or item == 'all':
-            item = 'all'
             query = session.query(Domain).filter(
                 Domain.title.notlike('N/A')).order_by(
                 desc(Domain.hits)).all()
