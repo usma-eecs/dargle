@@ -3,7 +3,7 @@ from flask_paginate import Pagination, get_page_args
 from dargle_webapp import app, db
 # from dargle_webapp.models import Domain, Timestamp
 from dargle_webapp.workflow.dargle_orm import Base, Domain, Timestamp, Source
-from sqlalchemy import create_engine
+from sqlalchemy import create_engine, desc
 from sqlalchemy.orm import sessionmaker, Query
 from elasticsearch import Elasticsearch
 from elasticsearch.helpers import bulk
@@ -87,13 +87,17 @@ def search():
     if request.method == "POST":
         item = request.form['domain']
 
-        query = session.query(Domain).filter(Domain.domain.like(f'%{item}%'),
-            Domain.title.like(item)).all()
+        query = session.query(Domain).filter(
+            Domain.title.notlike('N/A')).filter(
+            Domain.title.like(f'%{item}%')).order_by(
+            desc(Domain.hits)).all()
         session.commit()
 
         if len(query)==0 and item=='all':
-            query = session.query(Domain).filter(Domain.domain.like(f'%{item}%'),
-                Domain.title.like(item)).all()
+            query = session.query(Domain).filter(
+                Domain.title.notlike('N/A')).filter(
+                Domain.title.like(f'%{item}%')).order_by(
+                desc(Domain.hits)).all()
             session.commit()
 
         return render_template('search.html', data=query)
