@@ -35,7 +35,7 @@ h1, h2, h3, h4, h5, h6 {
 * {
   box-sizing: border-box;
 }
-form.example input[type=text] {
+form.search input[type=text] {
   padding: 10px;
   font-size: 17px;
   border: 1px solid grey;
@@ -43,7 +43,7 @@ form.example input[type=text] {
   width: 80%;
   background: #f1f1f1;
 }
-form.example button {
+form.search button {
   float: left;
   width: 20%;
   padding: 10px;
@@ -54,10 +54,10 @@ form.example button {
   border-left: none;
   cursor: pointer;
 }
-form.example button:hover {
+form.search button:hover {
   background: #0b7dda;
 }
-form.example::after {
+form.search::after {
   content: "";
   clear: both;
   display: table;
