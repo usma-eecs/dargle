@@ -84,14 +84,13 @@ def search():
     session = dbsession()
     if request.method == "POST":
         item = request.form['domain']
-
-        query = session.query(Domain).filter(
-            Domain.title.notlike('N/A')).filter(
-            Domain.title.like(f'%{item}%')).order_by(
-            desc(Domain.hits)).all()
-        session.commit()
-
-        if len(query)==0 and item=='all':
+        if not item or item == 'all':
+            item = 'all'
+            query = session.query(Domain).filter(
+                Domain.title.notlike('N/A')).order_by(
+                desc(Domain.hits)).all()
+            session.commit()
+        else:
             query = session.query(Domain).filter(
                 Domain.title.notlike('N/A')).filter(
                 Domain.title.like(f'%{item}%')).order_by(
