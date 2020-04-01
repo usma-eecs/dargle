@@ -18,6 +18,7 @@
                 <th>Domain</th>
                 <th>Hits</th>
             </thead>
+            <p>Showing {{ data|length }} results</p>
             {% for item in data %}
                 <tr>
                   <td>{{item["title"]}}</td>
