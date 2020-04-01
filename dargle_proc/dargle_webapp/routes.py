@@ -5,8 +5,6 @@ from dargle_webapp import app, db
 from dargle_webapp.workflow.dargle_orm import Base, Domain, Timestamp, Source
 from sqlalchemy import create_engine, desc
 from sqlalchemy.orm import sessionmaker, Query
-from elasticsearch import Elasticsearch
-from elasticsearch.helpers import bulk
 
 import sqlite3, json
 import pandas as pd
