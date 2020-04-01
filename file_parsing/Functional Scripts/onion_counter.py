@@ -34,14 +34,17 @@ def init_onions(filename):
                      quoting=csv.QUOTE_ALL, skipinitialspace=True)
         next(reader)
         with open("initial_counts.csv", 'a+', newline='') as output:
-            writer = csv.writer(output)
-            for line in reader:
-                site = line[0]
-                onion_url = line[1]
-                onion = urlparse("http://"+onion_url).netloc
-                file_onions.setdefault(onion, []).append(site)
-            for k,v in file_onions.items():
-                writer.writerow([k, len(v)])
+            with open("dump.csv", 'a+', newline='') as dump:
+                output_writer = csv.writer(output)
+                dump_writer = csv.writer(dump)
+                for line in reader:
+                    dump_writer.writerow([line[1], line[0]])
+                    site = line[0]
+                    onion_url = line[1]
+                    onion = urlparse("http://"+onion_url).netloc
+                    file_onions.setdefault(onion, []).append(site)
+                for k,v in file_onions.items():
+                    output_writer.writerow([k, len(v)])
 
 # Mid-Counter
 def mid_onions(filename):
