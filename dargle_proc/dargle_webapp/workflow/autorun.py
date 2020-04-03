@@ -5,10 +5,13 @@ outie = sys.argv[2]
 # thread_num = int(sys.argv[3])
 domain = sys.argv[3]
 header = sys.argv[4]
+check = sys.argv[5]
 
 request.line_count(innie)
 
-csv = request.process_links(innie,outie,header)
+if check == True:
+    csv = request.process_links(innie,outie,header)
 # For troubleshooting/skipping requests
-#csv = outie
+else:
+    csv = outie
 dargle_orm.dbUpdate(csv,domain)
