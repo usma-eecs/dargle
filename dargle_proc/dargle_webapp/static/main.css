@@ -1,4 +1,5 @@
 body {
+  font-family: 'Roboto Slab', serif;
   background: #fafafa;
   color: #333333;
   margin-top: 5rem;
@@ -6,6 +7,11 @@ body {
 
 h1, h2, h3, h4, h5, h6 {
   color: #444444;
+  font-family: 'Roboto Slab', serif;
+}
+
+p {
+  font-family: 'Roboto Slab', serif;
 }
 
 .bg-steel {
@@ -26,12 +32,13 @@ h1, h2, h3, h4, h5, h6 {
 
 .content-section {
   background: #ffffff;
-  padding: 10px 20px;
+  padding: 10px 10px;
   border: 1px solid #dddddd;
   border-radius: 3px;
   margin-bottom: 20px;
 }
 
+/* Search Form CSS */
 * {
   box-sizing: border-box;
 }
