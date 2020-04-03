@@ -1,11 +1,14 @@
 PRESENTER INFORMATION
 Primary Speaker Name or Pseudonym*:
+Harrison Strickland
 
 Primary Speaker Title and Company (if applicable):
 
 Additional Speaker Name(s)/Pseudonym(s)* and Title(s):
+Derek Nunn
 
 Have any of the speakers spoken at a previous DEF CON? If Yes, which speaker, what year(s), and which talk(s)?
+No
 
 Primary Speaker Email Address:
 
@@ -14,8 +17,11 @@ Backup Email, in case of communication failure (optional):
 Primary Speaker Phone Number:
 
 Co-Speaker(s) Email Address(es):
+derek.nunn@westpoint.edu
+danunn01@gmail.com 
 
 Co-Speaker(s) Phone Number(s):
+(301) 885-7680
 
 Speakers' Social Media / Personal Site Information (Twitter, Facebook, website, etc)*:
 
