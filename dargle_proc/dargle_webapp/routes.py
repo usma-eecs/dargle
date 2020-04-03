@@ -1,4 +1,7 @@
-from flask import render_template, url_for, request, json
+from io import BytesIO
+from matplotlib.backends.backend_agg import FigureCanvasAgg as fg
+
+from flask import render_template, url_for, request, json, send_file
 from flask_paginate import Pagination, get_page_args
 from dargle_webapp import app, db
 # from dargle_webapp.models import Domain, Timestamp
@@ -8,6 +11,10 @@ from sqlalchemy.orm import sessionmaker, Query
 
 import sqlite3, json
 import pandas as pd
+import matplotlib.pyplot as plt
+import numpy as np
+
+plt.style.use('ggplot')
 
 path = 'dargle_webapp/workflow/dargle.sqlite'
 engine = create_engine(f"sqlite:///{path}")
@@ -99,4 +106,25 @@ def search():
         return render_template('search.html', data=query)
     return render_template('search.html')
 
-# https://www.tutorialspoint.com/flask/flask_sqlite.htm
+@app.route('/analysis')
+def analysis():
+    fig, ax = plt.subplots()
+
+    dframeD = pd.read_sql_query("select * from domains order by hits desc limit 10",
+                engine)
+    titleD = dframeD['title']
+    domainD = dframeD['domain']
+    hitsD = dframeD['hits']
+
+    plt.barh(domainD,hitsD,align='center',color='orange')
+    plt.xlabel('Hits')
+    plt.ylabel('Domain')
+    plt.title('Number of Hits / Top 10 .onion Domains')
+    plt.tight_layout(w_pad=1)
+
+    canvasD = fg(fig)
+    img = BytesIO()
+    fig.savefig(img)
+    img.seek(0)
+
+    return send_file(img, mimetype='image/png')
