@@ -114,7 +114,7 @@ def search():
 
 @app.route('/figure_1')
 def figure1():
-    fig, ax = plt.subplots(figsize=(12.8,7.2))
+    fig, ax = plt.subplots(figsize=(10.24,7.68))
 
     dframeD = pd.read_sql_query("select * from domains order by hits desc limit 10",
                 engine)
@@ -122,9 +122,9 @@ def figure1():
     domainD = dframeD['domain']
     hitsD = dframeD['hits']
 
-    plt.barh(titleD,hitsD,align='center',color='orange')
+    plt.barh(domainD,hitsD,align='center',color='orange')
     plt.xlabel('Hits')
-    plt.ylabel('Title')
+    plt.ylabel('Domain')
     plt.title('Hits / Top 10 .onion Domains')
     plt.tight_layout(w_pad=1)
 
@@ -137,9 +137,9 @@ def figure1():
 
 @app.route('/figure_2')
 def figure2():
-    fig, ax = plt.subplots(figsize=(12.8,7.2))
+    fig, ax = plt.subplots(figsize=(10.24,7.68))
 
-    dframeS = pd.read_sql_query("select * from sources order by hits desc limit 10",
+    dframeS = pd.read_sql_query("select * from sources order by hits desc limit 12",
                 engine)
     domainS = dframeS['domain']
     hitsS = dframeS['hits']
