@@ -35,7 +35,7 @@ def query(table):
         return
     return cur.fetchall()
 
-def paginated_query(table, limit, offset):
+def paginated_query(table, limit, offset, item=None):
     con = sqlite3.connect(path)
     con.row_factory = sqlite3.Row
     cur = con.cursor()
@@ -45,6 +45,9 @@ def paginated_query(table, limit, offset):
         cur.execute(f'SELECT * FROM timestamps LIMIT {limit} OFFSET {offset}')
     elif table == 'sources':
         cur.execute(f'SELECT * from sources ORDER BY hits DESC LIMIT {limit} OFFSET {offset}')
+    elif table == 'search':
+        cur.execute(f"""SELECT DISTINCT * FROM domains NOT LIKE 'N/A'
+                    AND LIKE '%{item}%' ORDER BY hits DESC LIMIT {limit} OFFSET {offset}""")
     else:
         return
     return cur.fetchall()
@@ -93,6 +96,7 @@ def domain_sources():
 
 @app.route('/search', methods=['GET','POST'])
 def search():
+    page, per_page, offset = get_page_args()
     dbsession = sessionmaker(bind=engine)
     session = dbsession()
     if request.method == "POST":
@@ -108,8 +112,11 @@ def search():
                 Domain.title.like(f'%{item}%')).order_by(
                 desc(Domain.hits)).all()
             session.commit()
-
-        return render_template('search.html', data=query)
+        total = len(query)
+        pagination = Pagination(page=page, total=total,
+                            offset=offset, css_framework='bootstrap4')
+        return render_template('paginated_search.html', data=query,
+                                page=page, pagination=pagination)
     return render_template('search.html')
 
 @app.route('/figure_1')
