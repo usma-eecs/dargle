@@ -92,7 +92,7 @@ def domain_sources():
     offset = (page - 1) * 25
     total = len(all_sources)
     rendered_sources = paginated_query('sources', 25, offset)
-    pagination = Pagination(page=page, total=total, per_page=25
+    pagination = Pagination(page=page, total=total, per_page=25,
                             offset=offset, css_framework='bootstrap4')
     return render_template('domain_sources.html', title='Sources', rows=rendered_sources,
                             page=page, pagination=pagination, total=total)
