@@ -112,9 +112,9 @@ def search():
         return render_template('search.html', data=query)
     return render_template('search.html')
 
-@app.route('/analysis')
-def analysis():
-    fig, ax = plt.subplots()
+@app.route('/figure_1')
+def figure1():
+    fig, ax = plt.subplots(figsize=(12.8,7.2))
 
     dframeD = pd.read_sql_query("select * from domains order by hits desc limit 10",
                 engine)
@@ -122,10 +122,10 @@ def analysis():
     domainD = dframeD['domain']
     hitsD = dframeD['hits']
 
-    plt.barh(domainD,hitsD,align='center',color='orange')
+    plt.barh(titleD,hitsD,align='center',color='orange')
     plt.xlabel('Hits')
-    plt.ylabel('Domain')
-    plt.title('Number of Hits / Top 10 .onion Domains')
+    plt.ylabel('Title')
+    plt.title('Hits / Top 10 .onion Domains')
     plt.tight_layout(w_pad=1)
 
     canvasD = fg(fig)
@@ -134,3 +134,29 @@ def analysis():
     img.seek(0)
 
     return send_file(img, mimetype='image/png')
+
+@app.route('/figure_2')
+def figure2():
+    fig, ax = plt.subplots(figsize=(12.8,7.2))
+
+    dframeS = pd.read_sql_query("select * from sources order by hits desc limit 10",
+                engine)
+    domainS = dframeS['domain']
+    hitsS = dframeS['hits']
+
+    plt.barh(domainS,hitsS,align='center',color='orange')
+    plt.xlabel('Hits')
+    plt.ylabel('Domain')
+    plt.title('Hits / Top 10 .onion Sources')
+    plt.tight_layout(w_pad=1)
+
+    canvasS = fg(fig)
+    img = BytesIO()
+    fig.savefig(img)
+    img.seek(0)
+
+    return send_file(img, mimetype='image/png')
+
+@app.route('/analysis')
+def analysis():
+    return render_template('analysis.html')
