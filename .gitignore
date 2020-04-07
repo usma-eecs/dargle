@@ -1,3 +1,5 @@
 *.gz
 .vscode/*
 *.ovpn
+*.ppk
+/.ssh
