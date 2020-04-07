@@ -31,13 +31,14 @@ PRESENTATION INFORMATION
 Date of Submission:
 
 Presentation Title:
+Searching the Darkweb the right way
 
 Length of presentation: (20 minutes, 45 minutes, 105 minutes)
-
+20 minutes
 Is there a demonstration? Yes or No. If yes, please explain the demonstration.
-
+No
 Is there audience participation*? Yes or No. If yes, how?
-
+No
 Are you releasing a new tool? Yes or No
 If you are releasing a new tool:
 Under which license?
@@ -47,6 +48,7 @@ What language is the tool written in?
 Please introduce your tool briefly and explain what it does:
 
 Are you releasing a new exploit? Yes or No
+No
 If you are releasing vulnerabilities, please break them down and abstract as a vulnerability database would. Include the vendor(s), product(s), and version(s) affected here:
 
 Are there any contingencies that might prevent releasing the exploit (e.g. vendor relationships, coordinated disclosure delays, visa approvals, etc)? Yes or No
@@ -54,12 +56,12 @@ Are there any contingencies that might prevent releasing the exploit (e.g. vendo
 Have you submitted or do you plan on submitting this topic to any other conference held prior to DEF CON 28? If yes, please list which conference(s) and their dates.
 
 Are you submitting this or any other topic to Black Hat USA? Yes or No. If Yes, please elaborate.
-
+No
 If you answered yes to the previous question, can you ONLY commit to speak at DEF CON if your talk is accepted at Black Hat USA? Yes or No
 Note: For clarification, this means if your submission to Black Hat's CFP is rejected, you will withdraw your DEF CON Submission.
 
 Are you submitting this or any other topic to BSidesLV? Yes or No. If Yes, please elaborate.
-
+No
 Sometimes a good CFP makes a great fit for a DEF CON Village too. The review board will recommend some talks to be presented exclusively in a village, or as an encore to a main stage presentation. Do you consent to allow DEF CON to forward your completed submission to relevant DEF CON Village lead(s) for their consideration for village content? * Yes or No.
 
 ABSTRACT (not to exceed 1337 characters):
