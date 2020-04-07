@@ -1,6 +1,7 @@
 import re # Regular expression library
-import warc # warc3-wet. To read common crawl files.
-import csv # Output and input format
+import gzip
+from io import BufferedReader
+import zlib
 from glob import glob # To find all files in specified directory
 from multiprocessing import Pool, cpu_count # To utilize multiple processors to speed up the script
 from subprocess import Popen, PIPE # Make the script universal
@@ -8,7 +9,7 @@ from sys import platform # Determine system
 from os.path import splitext # Used in tracking
 
 # Regex for onions 
-# onion_regex = r'([a-zA-Z2-7]{16}|[a-zA-Z2-7]{56})\.onion?(?:\/([^/ \\\s]*))?'
+# onion_regex = r'(?:https?\:\/\/)?[a-zA-Z2-7]{16}\.onion?(?:\/([^/]*))?'
 onion_regex = r'(?:[a-zA-Z2-7]{16}|[a-zA-Z2-7]{56})\.onion'
 onion = re.compile(onion_regex, re.IGNORECASE)
 
@@ -44,35 +45,25 @@ def findall(pattern, string):
 # Find onions in data
 def find_onions(filename):
     global onion
-    with warc.open(filename) as f:
-        with open("{}.csv".format(filename.strip(".warc.wet.gz")), 'w', newline='') as output:
-            writer = csv.writer(output)
-            writer.writerow(["Site", "Onion"])
-            for record in f:
-                url = str(record.header.get('WARC-Target-URI', None))
-                data = str(record.payload.read())
-                url_match = findall(onion, url)
-                payload_match = findall(onion, data)
-                if url_match:
-                    onions = list(url_match)
-                    for o in onions:
-                        writer.writerow([url, o])
-                if payload_match:
-                    onions = list(payload_match)
-                    for o in onions:
-                        writer.writerow([url, o])
+    gz = gzip.open(filename, 'rb')
+    f = BufferedReader(gz)
+    clear = ''
+    for line in f:
+        url = re.search(r'WARC-Target-URI: (.+)\r\n', line.decode('utf8'))
+        if url:
+            clear = url
+        domain = re.search(onion, line.decode('utf8'))
+        if domain:
+            print(f'{domain.group(0)}  {clear.group(1)}')
+    gz.close()
 
 if __name__ == "__main__":
     files = glob("*.warc.wet.gz")
-    completed = glob("*.csv")
-    completed = [splitext(c)[0] for c in completed]
-    if completed:
-        files = [f for f in files if f.strip(".warc.wet.gz") not in completed]
-    if len(files) == 0:
-        print("All Common Crawl Files have been searched!")
-    else:
-        processors = os_processes()
-        print("Searching for onions.........")
-        pool = Pool(processors)
-        pool.map(find_onions, files)
-        pool.close()
+    processors = os_processes()
+    print("Searching for onions.........")
+    # for f in files:
+        # find_onions(f)
+    pool = Pool(processors)
+    pool.map(find_onions, files)
+    pool.close()
+    # find_onions("CC-MAIN-20190919142838-20190919164838-00004.warc.wet.gz")
