@@ -65,9 +65,16 @@ def about():
 def domains():
     page, per_page, offset = get_page_args()
     all_domains = query("domain")
+<<<<<<< HEAD
     total = len(all_domains)
     rendered_domains = paginated_query('domain', 25, offset)
     pagination = Pagination(page=page, total=total,
+=======
+    offset = (page - 1) * 25
+    total = len(all_domains)
+    rendered_domains = paginated_query('domain', 25, offset)
+    pagination = Pagination(page=page, total=total, per_page=25,
+>>>>>>> cccd74e9782027959ab99e47264cbd907da81062
                             offset=offset, css_framework='bootstrap4')
     return render_template('domains.html', title='Domains', rows=rendered_domains,
                              page=page, pagination=pagination, total=total)
@@ -76,9 +83,16 @@ def domains():
 def timestamps():
     page, per_page, offset = get_page_args()
     all_timestamps = query("timestamps")
+<<<<<<< HEAD
     total = len(all_timestamps)
     rendered_timestamps = paginated_query('timestamps', 25, offset)
     pagination = Pagination(page=page, total=total,
+=======
+    offset = (page - 1) * 25
+    total = len(all_timestamps)
+    rendered_timestamps = paginated_query('timestamps', 25, offset)
+    pagination = Pagination(page=page, total=total, per_page=25,
+>>>>>>> cccd74e9782027959ab99e47264cbd907da81062
                             offset=offset, css_framework='bootstrap4')
     return render_template('timestamps.html', title='Timestamps', rows=rendered_timestamps,
                             page=page, pagination=pagination, total=total)
@@ -87,9 +101,16 @@ def timestamps():
 def domain_sources():
     page, per_page, offset = get_page_args()
     all_sources = query("sources")
+<<<<<<< HEAD
     total = len(all_sources)
     rendered_sources = paginated_query('sources', 25, offset)
     pagination = Pagination(page=page, total=total,
+=======
+    offset = (page - 1) * 25
+    total = len(all_sources)
+    rendered_sources = paginated_query('sources', 25, offset)
+    pagination = Pagination(page=page, total=total, per_page=25,
+>>>>>>> cccd74e9782027959ab99e47264cbd907da81062
                             offset=offset, css_framework='bootstrap4')
     return render_template('domain_sources.html', title='Sources', rows=rendered_sources,
                             page=page, pagination=pagination, total=total)
