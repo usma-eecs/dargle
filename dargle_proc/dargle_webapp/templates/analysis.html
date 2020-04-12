@@ -5,20 +5,91 @@
 
     <p></p>
 
-    <p font-family="Roboto Slab">
+    <h2>Abstract</h2>
+
+    <p></p>
+
+    <p>
+        In regards to networks, the Dark Web is notoriously difficult to traverse. It requires specialized software or configurations to access addresses, and addresses are only accessible with *a priori* knowledge. Without an address beforehand, a user is unable to visit the associated hidden service. In addition to this, the Dark Web utilizes encrypted peer-to-peer connections, primarily through TOR protocols, meaning that content is highly anonymized and several layers of abstraction exist between users and hidden services.
+    </p>
+
+    <p></p>
+
+    <p>
+        These factors result in the Dark Web being host to a myriad of services whose express goal is to host illegal content. When mentioning the Dark Web, many are quick to point out the fact that it harbors hacking forums, drug marketplaces, hitmen-for-hire, and child pornography. While comprehensive knowledge of the Dark Web proves valuable for law enforcement, actually acquiring a complete index of the Dark Web proves difficult.
+    </p>
+
+    <p></p>
+
+    <p>
+        This analysis will discuss the Dargle (the Dark web Grouping and Listing Engine), our methodology for indexing the Dark Web, and the results of our work.
+    </p>
+
+    <p></p>
+
+    <h2>Methodology</h2>
+
+    <p></p>
+    <p>
+        In order to comprehensively catalog hidden services on the Dark Web, we ingested the Common Crawl Corpus (CCC), the monthly result of crawling the entire internet. We systematically parsed through the CCC in order to collect all *.onion* addresses present on the Clear Web. In total, we gathered over 40,000 unique addresses from the Clear Web. These were then compiled into a single file, and each unique address had an associated value denoting the number of times said address appeared on the internet. In addition to this, we compiled each address on the Clear Web along with the number of *.onion* addresses each referenced.
+    </p>
+
+    <p></p>
+    <p>
+        With this list of addresses, we proceeded to verify the status of each of these addresses. We iteratively connected to each address via Python's requests library and collected a status, timestamp, and title from each of the *.onion* addresses. We then utilized an object-relational mapper, SQLAlchemy, to store this information in a database.
+    </p>
+
+    <p></p>
+    <p>
+        Once in the database, we displayed our results through an public outward-facing webapp, Dargle. We made three separate tables with this information: one with *.onion* addresses, one with the timestamps and statuses of each *.onion*, and one with the sources for the *onion* addresses. We also added a search functionality for users to parse through these tables themselves.
+    </p>
+
+    <p></p>
+    <h2>Analysis</h2>
+
+    <p></p>
+    <p>
         From our data, we can take a look at just exactly which services on the Dark Web are most popular on the Clear Web. Taking a look at the top 10 sites, we see the following figure
     </p>
 
     <center><img src="/figure_1" alt="Hits per Domain"></center>
 
     <p></p>
-
     <p>
-        This figure shows that of the top 10 domains, 4 of them are links to Hydra, the premiere Russian drug marketplace. One seems to be pointing to Facebook's .onion address. We also can see DuckDuckGo takes fourth place, which makes sense due to its popularity among people who want to keep their searches private.
+        This figure shows that of the top 10 domains, 4 of them are links to Hydra, a Russian drug marketplace. What is unique about Hydra is its decentralized nature-- there are many different vendors that pay rent to a central operator. This operator then gains license to operate as a Hydra affiliate, with vendors that pay extra becoming "trusted sellers" with extra privileges. So long as vendors maintain their monthly payments and abide by the rules set forth by the central hub, these vendors can continue to operate under the Hydra umbrella.[1]
     </p>
 
     <p></p>
+    <p>
+        Facebook's *.onion* address holds the second place slot. Facebook has been maintaining this service on the Dark Web since 2014 in order to allow people to use their service in countries blocking Facebook. Facebook has reported that their Dark Web service has been garnering traffic of over 1 million users monthly.[2]
+    </p>
 
+    <p></p>
+    <p>
+        In the fourth slot is DuckDuckGo's address. DuckDuckGo is a privacy-oriented search engine that allows users to navigate the internet without fear of personal information being leaked.
+    </p>
+
+    <p></p>
+    <p>
+        Next is PROBIV, a Russian information vendor often used by cybercriminals to gain the personal information of their victims.[3]
+    </p>
+
+    <p></p>
+    <p>
+        The sixth slot returned a now defunct *.onion* address.
+    </p>
+
+    <p></p>
+    <p>
+        In the seventh slot is a deprecated address for the Pirate Bay's Dark Web service.[4] The Pirate Bay was one of the largest hosts of torrents on the internet and continues to hold one of the top slots in this field. They have since switched to another domain at piratebayztemzmv.onion.
+    </p>
+
+    <p></p>
+    <p>
+        Finally, we have TORCH, a Tor Search Engine, taking up the tenth slot.
+    </p>
+
+    <p></p>
     <p>
         We can do the same with the sites that house references to .onion domains. Doing this, we get
     </p>
@@ -26,18 +97,78 @@
     <center><img src="/figure_2" alt="Hits per Source"></center>
 
     <p></p>
+    <p>
+        The one with the most references by far is a directory for *.onion* addresses, oniondir.biz. The number of hits for this address is over 14,000, more than doubling the number of hits for any single domain ranked 3 through 10.
+    </p>
 
-    <ol>
-        <li>The one with the most references by far is seemingly a directory of .onion addresses, oniondir.biz.</li>
-        <li>At second, we have Pastebin, which is simply a popular site that houses text files.</li>
-        <li>Covering third and fourth, there's the CyberBunker, a hosting service for Dark Web domains.</li>
-        <li>The fifth slot is held by Micropaste, a service for sharing code, texts, and links, which is similar to Pastebin.</li>
-        <li>Next is hosting.danwin. This site is run by Daniel Winzen, who in turn hosts thousands of addresses on the Dark Web. However, as of March 2020, his service was attacked and most of his services were taken down.</li>
-        <li>Sec4ever is an Arabic hacking forum.</li>
-        <li>In the next two slots is escrita.com.br, a Brazilian library/archive site.</li>
-        <li>Next is onionlandsearchengine, which is apparently a search engine for the Dark Web.</li>
-        <li>Again we see Daniel Winzen's domain, but this time it appears to be a listing of onions on his site.</li>
-        <li>Finally, we see coinexchange.io, which is a domain dedicated to BTC trading. This one is somewhat surprising, though it makes sense, as BTC is the de facto currency of the Dark Web.</li>
-    </p>    
+    <p></p>
+    <p>
+        At second, we have Pastebin, which is a popular site that hosts text files of all kinds. Since Pastebin is frequently used by hackers, programmers, and information sharers of all varieties, its place at the number 2 slot is understandable.
+    </p>
+
+    <p></p>
+    <p>
+        Covering third, we can see the domain for CyberBunker, a former hosting service for Dark Web domains. Due to several raids by German authorities, the service has since been taken down.[5] Instead, the address now redirects to a gab.com address for Sven Olaf Kamphuis' account, the hacker and former owner of CyberBunker.[6] The website gab.com is an alternative to Twitter marketed towards alt-right individuals.
+    </p>
+
+    <p></p>
+    <p>
+        The fourth slot is held by Micropaste, a service for sharing code, texts, and links, similar to Pastebin.
+    </p>
+
+    <p></p>
+    <p>
+        Next is hosting.danwin. This site is run by Daniel Winzen, who in turn hosts thousands of addresses on the Dark Web. However, as of March 2020, his service was attacked and most of his services were taken down.[7]
+    </p>
+
+    <p></p>
+    <p>
+        Sec4ever is an Arabic hacking forum and comes in the sixth slot of domains with the most unique *.onion* addresses within its contents. This comes as some surprise due to Arabic speaking nations not being associated on the forefront of hacking and cybersecurity. Nevertheless, Iran constitutes a major source of cyberattacks, and Arabic-speaking nations constitute a notable portion of the world's population.
+    </p>
+
+    <p></p>
+    <p>
+        In the seventh slot is www.escrita.com.br, a Brazilian library/archive site. According to the translated landing page, the site allows writers to submit content for publication. This covers a wide variety of content, to include news, essays, poetry, and reviews.
+    </p>
+
+    <p></p>
+    <p>
+        Next is onionlandsearchengine, which is a search engine for the Dark Web. It is interesting to note that as a search engine, onionland only accounts for less than 4000 unique domains on its site and is dwarfed by listings from even hosting sites.
+    </p>
+
+    <p></p>
+    <p>
+        Again we see Daniel Winzen's domain, but this time it appears to be a listing of onions on his site.
+    </p>
+
+    <p></p>
+    <p>
+        Finally, we see coinexchange.io, which is a domain dedicated to BTC trading. With Bitcoin being the de facto currency of the Dark Web, it makes sense that an exchange would link to a large number of *.onion* addresses.
+    </p>
+
+    <h2>References</h2>
+
+    <p></p>
+    <p>
+        [1] https://www.vice.com/en_us/article/g5x3zj/hydra-russia-drug-cartel-dark-web
+    </p>
+    <p>
+        [2] https://www.businessinsider.com/facebook-tor-connect-1-million-2016-4
+    </p>
+    <p>
+        [3] https://www.digitalshadows.com/blog-and-research/probiv-the-missing-pieces-to-a-cybercriminals-puzzle/
+    </p>
+    <p>
+        [4] https://torrentfreak.com/the-pirate-bay-moves-to-a-brand-new-onion-domain-191206/
+    </p>
+    <p>
+        [5] https://krebsonsecurity.com/tag/cyberbunker/
+    </p>
+    <p>
+        [6] https://gab.com/cb3rob
+    </p>
+    <p>
+        [7] https://www.zdnet.com/article/dark-web-hosting-provider-hacked-again-7600-sites-down/
+    </p>
 
 {% endblock content %}

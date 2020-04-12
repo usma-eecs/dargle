@@ -116,7 +116,7 @@ def search():
                 desc(Domain.hits)).all()
             session.commit()
         total = len(query)
-        pagination = Pagination(page=page, total=total,
+        pagination = Pagination(page=page, total=total, per_page=25,
                             offset=offset, css_framework='bootstrap4')
         return render_template('paginated_search.html', data=query,
                                 page=page, pagination=pagination)
@@ -135,6 +135,7 @@ def figure1():
     plt.barh(domainD,hitsD,align='center',color='orange')
     plt.xlabel('Hits')
     plt.ylabel('Domain')
+    ax.invert_yaxis()
     plt.title('Hits / Top 10 .onion Domains')
     plt.tight_layout(w_pad=1)
 
@@ -147,25 +148,26 @@ def figure1():
 
 @app.route('/figure_2')
 def figure2():
-    fig, ax = plt.subplots(figsize=(10.24,7.68))
+    fig2, ax2 = plt.subplots(figsize=(10.24,7.68))
 
     dframeS = pd.read_sql_query("select * from sources order by hits desc limit 12",
-                engine)
+                engine).drop([2,8])
     domainS = dframeS['domain']
     hitsS = dframeS['hits']
 
     plt.barh(domainS,hitsS,align='center',color='orange')
     plt.xlabel('Hits')
     plt.ylabel('Domain')
+    ax2.invert_yaxis()
     plt.title('Hits / Top 10 .onion Sources')
     plt.tight_layout(w_pad=1)
 
-    canvasS = fg(fig)
-    img = BytesIO()
-    fig.savefig(img)
-    img.seek(0)
+    canvasS = fg(fig2)
+    img2 = BytesIO()
+    fig2.savefig(img2)
+    img2.seek(0)
 
-    return send_file(img, mimetype='image/png')
+    return send_file(img2, mimetype='image/png')
 
 @app.route('/analysis')
 def analysis():
