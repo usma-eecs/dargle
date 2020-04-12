@@ -10,7 +10,7 @@
     <p></p>
 
     <p>
-        In regards to networks, the Dark Web is notoriously difficult to traverse. It requires specialized software or configurations to access addresses, and addresses are only accessible with *a priori* knowledge. Without an address beforehand, a user is unable to visit the associated hidden service. In addition to this, the Dark Web utilizes encrypted peer-to-peer connections, primarily through TOR protocols, meaning that content is highly anonymized and several layers of abstraction exist between users and hidden services.
+        In regards to networks, the Dark Web is notoriously difficult to traverse. It requires specialized software or configurations to access addresses, and addresses are only accessible with <i>a priori</i> knowledge. Without an address beforehand, a user is unable to visit the associated hidden service. In addition to this, the Dark Web utilizes encrypted peer-to-peer connections, primarily through TOR protocols, meaning that content is highly anonymized and several layers of abstraction exist between users and hidden services.
     </p>
 
     <p></p>
@@ -31,17 +31,17 @@
 
     <p></p>
     <p>
-        In order to comprehensively catalog hidden services on the Dark Web, we ingested the Common Crawl Corpus (CCC), the monthly result of crawling the entire internet. We systematically parsed through the CCC in order to collect all *.onion* addresses present on the Clear Web. In total, we gathered over 40,000 unique addresses from the Clear Web. These were then compiled into a single file, and each unique address had an associated value denoting the number of times said address appeared on the internet. In addition to this, we compiled each address on the Clear Web along with the number of *.onion* addresses each referenced.
+        In order to comprehensively catalog hidden services on the Dark Web, we ingested the Common Crawl Corpus (CCC), the monthly result of crawling the entire internet. We systematically parsed through the CCC in order to collect all <i>.onion</i> addresses present on the Clear Web. In total, we gathered over 40,000 unique addresses from the Clear Web. These were then compiled into a single file, and each unique address had an associated value denoting the number of times said address appeared on the internet. In addition to this, we compiled each address on the Clear Web along with the number of <i>.onion</i> addresses each referenced.
     </p>
 
     <p></p>
     <p>
-        With this list of addresses, we proceeded to verify the status of each of these addresses. We iteratively connected to each address via Python's requests library and collected a status, timestamp, and title from each of the *.onion* addresses. We then utilized an object-relational mapper, SQLAlchemy, to store this information in a database.
+        With this list of addresses, we proceeded to verify the status of each of these addresses. We iteratively connected to each address via Python's requests library and collected a status, timestamp, and title from each of the <i>.onion</i> addresses. We then utilized an object-relational mapper, SQLAlchemy, to store this information in a database.
     </p>
 
     <p></p>
     <p>
-        Once in the database, we displayed our results through an public outward-facing webapp, Dargle. We made three separate tables with this information: one with *.onion* addresses, one with the timestamps and statuses of each *.onion*, and one with the sources for the *onion* addresses. We also added a search functionality for users to parse through these tables themselves.
+        Once in the database, we displayed our results through an public outward-facing webapp, Dargle. We made three separate tables with this information: one with <i>.onion</i> addresses, one with the timestamps and statuses of each <i>.onion</i>, and one with the sources for the <i>onion</i> addresses. We also added a search functionality for users to parse through these tables themselves.
     </p>
 
     <p></p>
@@ -61,7 +61,7 @@
 
     <p></p>
     <p>
-        Facebook's *.onion* address holds the second place slot. Facebook has been maintaining this service on the Dark Web since 2014 in order to allow people to use their service in countries blocking Facebook. Facebook has reported that their Dark Web service has been garnering traffic of over 1 million users monthly.[2]
+        Facebook's <i>.onion</i> address holds the second place slot. Facebook has been maintaining this service on the Dark Web since 2014 in order to allow people to use their service in countries blocking Facebook. Facebook has reported that their Dark Web service has been garnering traffic of over 1 million users monthly.[2]
     </p>
 
     <p></p>
@@ -76,7 +76,7 @@
 
     <p></p>
     <p>
-        The sixth slot returned a now defunct *.onion* address.
+        The sixth slot returned a now defunct <i>.onion</i> address.
     </p>
 
     <p></p>
@@ -98,7 +98,7 @@
 
     <p></p>
     <p>
-        The one with the most references by far is a directory for *.onion* addresses, oniondir.biz. The number of hits for this address is over 14,000, more than doubling the number of hits for any single domain ranked 3 through 10.
+        The one with the most references by far is a directory for <i>.onion</i> addresses, oniondir.biz. The number of hits for this address is over 14,000, more than doubling the number of hits for any single domain ranked 3 through 10.
     </p>
 
     <p></p>
@@ -123,7 +123,7 @@
 
     <p></p>
     <p>
-        Sec4ever is an Arabic hacking forum and comes in the sixth slot of domains with the most unique *.onion* addresses within its contents. This comes as some surprise due to Arabic speaking nations not being associated on the forefront of hacking and cybersecurity. Nevertheless, Iran constitutes a major source of cyberattacks, and Arabic-speaking nations constitute a notable portion of the world's population.
+        Sec4ever is an Arabic hacking forum and comes in the sixth slot of domains with the most unique <i>.onion</i> addresses within its contents. This comes as some surprise due to Arabic speaking nations not being associated on the forefront of hacking and cybersecurity. Nevertheless, Iran constitutes a major source of cyberattacks, and Arabic-speaking nations constitute a notable portion of the world's population.
     </p>
 
     <p></p>
@@ -143,7 +143,7 @@
 
     <p></p>
     <p>
-        Finally, we see coinexchange.io, which is a domain dedicated to BTC trading. With Bitcoin being the de facto currency of the Dark Web, it makes sense that an exchange would link to a large number of *.onion* addresses.
+        Finally, we see coinexchange.io, which is a domain dedicated to BTC trading. With Bitcoin being the de facto currency of the Dark Web, it makes sense that an exchange would link to a large number of <i>.onion</i> addresses.
     </p>
 
     <h2>References</h2>
