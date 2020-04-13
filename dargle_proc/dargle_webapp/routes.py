@@ -169,6 +169,174 @@ def figure2():
 
     return send_file(img2, mimetype='image/png')
 
+@app.route('/rankings')
+def rankings():
+    rankfig, (ra1,ra2) = plt.subplots(2,figsize=(10.24,7.68))
+
+    dframe1 = pd.read_sql_query("select * from domains order by hits desc",
+                    engine)
+    title1 = dframe1['title']
+    hitRank1 = []
+    for i in range(0,len(title1)):
+        hitRank1.append(i)
+    hits1 = dframe1['hits']
+
+    dframe2 = pd.read_sql_query("select * from sources order by hits desc",
+                    engine)
+    hits2 = dframe2['hits']
+    hitRank2 = []
+    for i in range(0,len(hits2)):
+        hitRank2.append(i)
+
+    ra1.plot(hitRank1,hits1,color='orange')
+    ra1.set_title('Hits by Rank, .onions')
+
+    ra2.plot(hitRank2,hits2,color='orange')
+    ra2.set_title('Hits by Rank, Sources')
+
+    for ax in (ra1,ra2):
+        ax.set(xlabel='Rank',ylabel='Hits')
+
+    plt.tight_layout(w_pad=1)
+
+    canvasD = fg(rankfig)
+    img3 = BytesIO()
+    rankfig.savefig(img3)
+    img3.seek(0)
+
+    return send_file(img3, mimetype='image/png')
+
+@app.route('/statuses')
+def statuses():
+    sfig, (ax1, ax2) = plt.subplots(2,figsize=(11.36,13.37))
+
+    status = pd.read_sql_query("select count(*) from timestamps where timestamp like '%04/%' and status='200'",
+                    engine)
+    status = status.rename(index={0: 1})
+    status = status.append(pd.read_sql_query("select count(*) from timestamps where timestamp like '%04/%' and status like '%30%'",
+                    engine))
+    status = status.rename(index={0: 2})
+    status = status.append(pd.read_sql_query("select count(*) from timestamps where timestamp like '%04/%' and status like '%40%'",
+                    engine))
+    status = status.rename(index={0: 3})
+    status = status.append(pd.read_sql_query("select count(*) from timestamps where timestamp like '%04/%' and status like '%50%'",
+                    engine))
+    status = status.rename(index={0: 4})
+    status = status.append(pd.read_sql_query("select count(*) from timestamps where timestamp like '%04/%' and status='ConnectTimeout'",
+                    engine))
+    status = status.rename(index={0: 5})
+    status = status.append(pd.read_sql_query("select count(*) from timestamps where timestamp like '%04/%' and status='SSLError'",
+                    engine))
+    status = status.rename(index={0: 6})
+    status = status.append(pd.read_sql_query("select count(*) from timestamps where timestamp like '%04/%' and status like '%Attribute%'",
+                    engine))
+    status = status.rename(index={0: 7})
+    status = status.append(pd.read_sql_query("select count(*) from timestamps where timestamp like '%04/%' and status like '%Read%'",
+                    engine))
+    status = status.rename(index={0: 8})
+    status = status.append(pd.read_sql_query("select count(*) from timestamps where timestamp like '%04/%' and status like '%Connection%'",
+                    engine))
+    status = status.rename(columns={'count(*)': 'Hits'}, index={0: 9})
+    status = status.rename(index={1:0,2:1,3:2,4:3,5:4,6:5,7:6,8:7,9:8})
+
+    newCol = pd.DataFrame(['200 Status',
+                           '300 Series Status',
+                           '400 Series Status',
+                           '500 Series Status',
+                           'Connect Timeout',
+                           'SSLError',
+                           'Attribute Error',
+                           'Read Timeout',
+                           'Connection Error'],columns=['Status'])
+
+    dframe = pd.DataFrame({'Status': newCol['Status'],
+                           'Hits': status['Hits']}).sort_values('Hits',ascending=False)
+
+    ax1.set_title('Hits by Status')
+    ax2.set_title('Hits by Status')
+
+    bar1 = ax1.barh(dframe['Status'],dframe['Hits'],align='center',color='orange')
+    ax1.invert_yaxis()
+
+    bar2 = ax2.barh(dframe['Status'].drop([4]),dframe['Hits'].drop([4]),align='center',color='orange')
+    ax2.invert_yaxis()
+
+    for index, value in enumerate(dframe['Hits']):
+        ax1.text(value, index, value)
+    for index, value in enumerate(dframe['Hits'].drop([4])):
+        ax2.text(value, index, value)
+
+    for ax in (ax1, ax2):
+        ax.set(xlabel='Hits',ylabel='Status')
+
+    plt.tight_layout(w_pad=1)
+
+    canvasD = fg(sfig)
+    img4 = BytesIO()
+    sfig.savefig(img4)
+    img4.seek(0)
+
+    return send_file(img4, mimetype='image/png')
+
+@app.route('/status_pie')
+def status_pie():
+    fig, ax = plt.subplots(figsize=(10.24,7.68))
+
+    status = pd.read_sql_query("select count(*) from timestamps where timestamp like '%04/%' and status='200'",
+                    engine)
+    status = status.rename(index={0: 1})
+    status = status.append(pd.read_sql_query("select count(*) from timestamps where timestamp like '%04/%' and status like '%30%'",
+                    engine))
+    status = status.rename(index={0: 2})
+    status = status.append(pd.read_sql_query("select count(*) from timestamps where timestamp like '%04/%' and status like '%40%'",
+                    engine))
+    status = status.rename(index={0: 3})
+    status = status.append(pd.read_sql_query("select count(*) from timestamps where timestamp like '%04/%' and status like '%50%'",
+                    engine))
+    status = status.rename(index={0: 4})
+    status = status.append(pd.read_sql_query("select count(*) from timestamps where timestamp like '%04/%' and status='ConnectTimeout'",
+                    engine))
+    status = status.rename(index={0: 5})
+    status = status.append(pd.read_sql_query("select count(*) from timestamps where timestamp like '%04/%' and status='SSLError'",
+                    engine))
+    status = status.rename(index={0: 6})
+    status = status.append(pd.read_sql_query("select count(*) from timestamps where timestamp like '%04/%' and status like '%Attribute%'",
+                    engine))
+    status = status.rename(index={0: 7})
+    status = status.append(pd.read_sql_query("select count(*) from timestamps where timestamp like '%04/%' and status like '%Read%'",
+                    engine))
+    status = status.rename(index={0: 8})
+    status = status.append(pd.read_sql_query("select count(*) from timestamps where timestamp like '%04/%' and status like '%Connection%'",
+                    engine))
+    status = status.rename(columns={'count(*)': 'Hits'}, index={0: 9})
+    status = status.rename(index={1:0,2:1,3:2,4:3,5:4,6:5,7:6,8:7,9:8})
+
+    newCol = pd.DataFrame(['200 Status',
+                           '300 Series Status',
+                           '400 Series Status',
+                           '500 Series Status',
+                           'Connect Timeout',
+                           'SSLError',
+                           'Attribute Error',
+                           'Read Timeout',
+                           'Connection Error'],columns=['Status'])
+
+    dframe = pd.DataFrame({'Status': newCol['Status'],
+                           'Hits': status['Hits']}).sort_values('Hits',ascending=False)
+
+    labels = dframe['Status'].drop([0,4,1])
+    sizes = dframe['Hits'].drop([0,4,1])
+
+    ax.pie(sizes,labels=labels,autopct='%1.1f%%',startangle=45)
+    ax.axis('equal')
+
+    canvasD = fg(fig)
+    img5 = BytesIO()
+    fig.savefig(img5)
+    img5.seek(0)
+
+    return send_file(img5, mimetype='image/png')
+
 @app.route('/analysis')
 def analysis():
     return render_template('analysis.html')

@@ -146,6 +146,100 @@
         Finally, we see coinexchange.io, which is a domain dedicated to BTC trading. With Bitcoin being the de facto currency of the Dark Web, it makes sense that an exchange would link to a large number of <i>.onion</i> addresses.
     </p>
 
+    <p></p>
+    <h3>Ranking by Hits</h3>
+
+    <p></p>
+    <p>
+        We can also plot the ranking trends to see exactly how the hits are distributed across our dataset. Doing this we get
+    </p>
+
+    <center><img src="/rankings" alt="Rankings by Hits"></center>
+
+    <p></p>
+    <p>
+        Looking at these diagrams, one thing stands out: the vast majority of hits come from the upper portion of both sources and <i>.onion</i> addresses. In fact, based on some cursory SQL queries, we determined that for our <i>.onion</i> table, the top 10% of addresses accounted for nearly 50% of the hits. Additionally, over 90% of <i>.onion</i> hits were contained within the top 10% of sources.
+    </p>
+
+    <p></p>
+    <p>
+        There are several implications that one could derive from this:
+    </p>
+
+    <ol>
+        <li>By monitoring only a small subset of sites on the clear web, one can find a large proportion of the hidden services on the Dark Web.</li>
+        <li>By monitoring only a small subset of sites on the Dark Web, one can track the majority of the traffic on the Dark Web.</li>
+        <li>While the numbers do not exactly match the Pareto Principle, a threat analyst can use the following rule of thumb: 20% of the Dark Web is liable to cause 80% of your problems.</li>
+    </ol>
+
+    <h3>Breakdown of .onion Statuses and Responses</h3>
+
+    <p></p>
+    <p>
+        We can now observe the timestamps and statuses of the most recent round of requests we performed on our list of <i>.onion</i> addresses. From this set of data, we can see all of the requests grouped by response code, <i>e.g.</i> HTTP 200, 300, 400, and 500.
+    </p>
+
+    <p></p>
+    <p>
+        We grouped these requests into the following status groups:
+    </p>
+
+    <ul>
+        <li><b>200</b> : The request returned a valid response, and information from the address was likely successfully logged.</li>
+        <li><b>300</b> : The request returned a response indicating the service has moved to another location or redirects elsewhere.</li>
+        <li><b>400</b> : The request returned a client error, e.g. bad response, unauthorized, forbidden, etc.</li>
+        <li><b>500</b> : The request returned a server error, e.g. service unavailable.</li>
+        <li><b>Connect Timeout</b> : The request failed to receive a response within the allotted time limit.</li>
+        <li><b>SSLError</b> : The SSL certificate for the service is untrusted, indicating potential for malicious activity.</li>
+        <li><b>Attribute Error</b> : Likely a failure to parse information from the service in our script.</li>
+        <li><b>Read Timeout</b> : The request succeeded, but the response timed out returning information.</li>
+        <li><b>Connection Error</b> : An error indicating a connection failure, possibly because the address is not hosting a webserver on a standart port.</li>
+    </ul>
+
+    <p></p>
+    <p>
+        Of these, the most interesting status was the Connection Error. Upon initial reading, the response is nondescript. However, this response indicates potential for a service being hosted on a nonstandard port, meaning a service may very well exist, hidden from prying eyes.
+    </p>
+
+    <p></p>
+    <p>
+        Graphing our results, we get
+    </p>
+
+    <center><img src="/statuses" alt="Response Counts"></center>
+
+    <p></p>
+    <p>
+        In the first chart, we included the Connect Timeout errors. As can be seen in this chart, Timeouts accounted for the majority of responses for our complete list of *.onion* addresses, with over 34,000 addresses returning this response. Looking forward, we will likely rerun these addresses through our script with an increased timeout limit, and we anticipate that by doing this, we will enhance the completeness of our database.
+    </p>
+
+    <p></p>
+    <p>
+        Controlling for Connect Timeout responses, we see the second chart. The second most common response was a valid HTTP 200 response. Over 3,000 addresses were able to be connected to, just under 10% of the addresses we gathered. Though it seems like a low number, this is still a powerful insight into the Dark Web, albeit improvable.
+    </p>
+
+    <p></p>
+    <p>
+        We also see just over 1,700 Connection Errors. While some of these may be legitimate errors, it is likely that a sizeable chunk of these addresses are running services on nonstandard ports. In the future, we hope to investigate these particular status codes further in order to determine their exact purpose and orientation.
+    </p>
+
+    <p></p>
+    <p>
+        Formatting this information into a more human-readable graphic, we see below
+    </p>
+
+    <center><img src="/status_pie" alt="Response Count Pie Chart"></center>
+
+    <p></p>
+    <p>
+        Out of all the statuses aside from 200 OK and Connect Timeout, we see that Connection Errors account for three quarters of the remaining statuses.
+    </p>
+
+    <p></p>
+    <p>
+        16% of these remainders-- Read Timeouts and Attribute Errors, can likely return a valid response after tweaking our codebase to account for these errors. We hope to apply these improvements in the near future to enhance our database.
+    </p>
+
     <h2>References</h2>
 
     <p></p>
