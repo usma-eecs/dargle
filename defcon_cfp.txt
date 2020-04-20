@@ -70,7 +70,7 @@ The dark web is notoriously difficult to traverse. Addresses are only accessible
 
 SPEAKER BIO(S) (not to exceed 1337 characters total):
 Note: This text will be used for the website and printed materials and should be written in the third person. Cover any professional or hacker history that is relevant to you and the presentation, you may include past jobs, tools that you have written, etc. Let people know who you are and why you are qualified to speak on your topic. If you prefer, you may write your bio under a pseudonym. Please include Co-Speaker and Panel Bios when possible.
-Derek Nunn is a cadet at the United States Military Academy. He is studying Information Technology and is interested in security adminsitration along with machine learning for malware.
+Derek Nunn is a cadet at the United States Military Academy. He is studying Information Technology and is interested in security adminsitration along with machine learning for firewalls.
 
 REFERENCES:
 Please provide a simple bibliography and/or works cited. List sources you have used (whether referenced or not) in the process of finalizing your presentation. Please remember to credit prior works and acknowledge others. References will be posted online with your talk information. We want attendees interested in your talk to be able to research what has been helpful for you in developing this presentation.
