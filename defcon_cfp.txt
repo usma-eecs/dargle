@@ -11,10 +11,14 @@ Have any of the speakers spoken at a previous DEF CON? If Yes, which speaker, wh
 No
 
 Primary Speaker Email Address:
+h.strickland.e@gmail.com
 
 Backup Email, in case of communication failure (optional):
+yashinexmachina@gmail.com
+harrison.strickland@westpoint.edu
 
 Primary Speaker Phone Number:
+(404) 786-8717
 
 Co-Speaker(s) Email Address(es):
 derek.nunn@westpoint.edu
@@ -31,7 +35,7 @@ PRESENTATION INFORMATION
 Date of Submission:
 
 Presentation Title:
-Searching the Darkweb the right way
+Searching the Darkweb the Right Way
 
 Length of presentation: (20 minutes, 45 minutes, 105 minutes)
 20 minutes
@@ -70,6 +74,7 @@ The dark web is notoriously difficult to traverse. Addresses are only accessible
 
 SPEAKER BIO(S) (not to exceed 1337 characters total):
 Note: This text will be used for the website and printed materials and should be written in the third person. Cover any professional or hacker history that is relevant to you and the presentation, you may include past jobs, tools that you have written, etc. Let people know who you are and why you are qualified to speak on your topic. If you prefer, you may write your bio under a pseudonym. Please include Co-Speaker and Panel Bios when possible.
+Harrison Strickland is a cadet at the United States Military Academy. He is studying Computer Science with a minor in Cybersecurity, and is interested in applied neural networks, data analysis, and learning new things.
 Derek Nunn is a cadet at the United States Military Academy. He is studying Information Technology and is interested in security adminsitration along with machine learning for firewalls.
 
 REFERENCES:
@@ -133,9 +138,9 @@ Terms of Speaking Remuneration
 
 4) I understand that I will be paid within 30 days from the end of the conference, after I have completed my presentation. I understand that should my talk be determined to be unsuitable (e.g. a vendor or sales pitch, a talk on the keeping of goats, etc.) after I have presented, that I will not receive an honorarium.
 
-As detailed above, I, (insert primary speaker name), have read and agree to the Grant of Copyright Use. I, (insert primary speaker name), have read and agree to the Terms of Speaking Requirements. I, (insert primary speaker name), have read and agree to the Agreement to Terms of Speaking Remuneration or I will forfeit my honorarium.
+As detailed above, I, Harrison Strickland, have read and agree to the Grant of Copyright Use. I, Harrison Strickland, have read and agree to the Terms of Speaking Requirements. I, Harrison Strickland, have read and agree to the Agreement to Terms of Speaking Remuneration or I will forfeit my honorarium.
 
 PRESS CONTACT
-I, (insert primary speaker name) understand that DEF CON's official Press Liaison & Staff may contact me. I consent to be contacted in order to arrange interviews with the media. My contact information will not be given to third parties without my consent.
+I, Harrison Strickland understand that DEF CON's official Press Liaison & Staff may contact me. I consent to be contacted in order to arrange interviews with the media. My contact information will not be given to third parties without my consent.
 < OR >
 No, I (insert primary speaker name), don't want to be contacted by DEF CON's press staff for any reason. Our policies, including our privacy policy are located here: https://www.defcon.org/html/links/dc-policy.html
