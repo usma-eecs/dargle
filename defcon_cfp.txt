@@ -29,27 +29,44 @@ Co-Speaker(s) Phone Number(s):
 
 Speakers' Social Media / Personal Site Information (Twitter, Facebook, website, etc)*:
 Derek Nunn Github: https://github.com/shadowwolf7027
+
 Would you like your submission sent in anonymously to the review board?*: Yes or No
 No
+
 PRESENTATION INFORMATION
 Date of Submission:
+24 APR 2020
 
 Presentation Title:
 Searching the Darkweb the Right Way
 
 Length of presentation: (20 minutes, 45 minutes, 105 minutes)
 20 minutes
+
 Is there a demonstration? Yes or No. If yes, please explain the demonstration.
 No
+
 Is there audience participation*? Yes or No. If yes, how?
 No
+
 Are you releasing a new tool? Yes or No
+Yes
+
 If you are releasing a new tool:
 Under which license?
+GNU General Public License Version 3
+
 Is it a full tool suite, a plugin, proof of concept exploit, update to existing tool, or something else?
+Something Else
+
 Is the tool currently public?
+Yes
+
 What language is the tool written in?
+Python
+
 Please introduce your tool briefly and explain what it does:
+Dargle is an open-sourced dark web search engine, that takes open-sourced information indexed from the internet to index the dark web
 
 Are you releasing a new exploit? Yes or No
 No
@@ -117,8 +134,8 @@ Note: This is the most important section on the application. You must provide a 
  - Transferring the results onto a Flask app
 
 SCHEDULING AND EQUIPMENT REQUIREMENTS
-Is there a specific day or time by which you must present?* Yes or No. No
-If Yes, Please indicate the dates/times and restriction.
+Is there a specific day or time by which you must present?* Yes or No.
+No
 
 Will you require more than 1 projector feed? Yes or No. If yes, please specify how many and why.
 No
@@ -128,6 +145,7 @@ N/A
 
 SUPPORTING FILES:
 Note: Additional supporting materials such as code, white papers, proof of concept, etc. should be sent along with your email submission. Additional files that may help in the selection process should be included. We are not asking for a complete presentation for this initial submission and full slides will only be required if you are selected for presenting. It is the submitter's responsibility to remove any PII from any attached slides, white papers, or supporting materials, and to appropriately sanitize any metadata in the provided content.
+https://github.com/usma-eecs/dargle
 
 SUBMISSION AGREEMENTS
 Please read and accept these terms by inserting your name where noted. Failure to do so will render your submission incomplete. Please read these carefully as some of the terms have changed.
