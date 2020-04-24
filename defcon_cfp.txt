@@ -79,6 +79,18 @@ Derek Nunn is a cadet at the United States Military Academy. He is studying Info
 
 REFERENCES:
 Please provide a simple bibliography and/or works cited. List sources you have used (whether referenced or not) in the process of finalizing your presentation. Please remember to credit prior works and acknowledge others. References will be posted online with your talk information. We want attendees interested in your talk to be able to research what has been helpful for you in developing this presentation.
+- https://metrics.torproject.org/hidserv-dir-onions-seen.html
+- https://blog.torproject.org/cooking-onions-names-your-onions
+- https://commoncrawl.org/2014/04/navigating-the-warc-file-format/
+- https://github.com/Willian-Zhang/warc3
+- https://www.vice.com/en_us/article/g5x3zj/hydra-russia-drug-cartel-dark-web
+- https://www.businessinsider.com/facebook-tor-connect-1-million-2016-4
+- https://www.digitalshadows.com/blog-and-research/probiv-the-missing-pieces-to-a-cybercriminals-puzzle/
+- https://torrentfreak.com/the-pirate-bay-moves-to-a-brand-new-onion-domain-191206/
+- https://krebsonsecurity.com/tag/cyberbunker/
+- https://gab.com/cb3rob
+- https://www.zdnet.com/article/dark-web-hosting-provider-hacked-again-7600-sites-down/
+-
 
 DETAILED OUTLINE:
 Note: This is the most important section on the application. You must provide a detailed outline containing the main points and navigation through your talk - show how you intend to begin, where you intend to lead the audience and how you plan to get there. Your outline should be in simple text. Please do not submit slides, Docs, or PDFs as an outline. If you are submitting a panel, it’s encouraged to list what each panel member will contribute to on the outline, as well as the estimated time budgeted for those bullet points. The review board likes submissions that include references to prior works and research you used in developing your presentation. The more detailed your outline then the better we are able to review your presentation against other submissions (and the higher chance you have of being accepted).
