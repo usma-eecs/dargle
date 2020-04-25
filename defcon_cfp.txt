@@ -67,6 +67,7 @@ The dark web is notoriously difficult to traverse. Addresses are only accessible
 SPEAKER BIO(S) (not to exceed 1337 characters total):
 Harrison Strickland is a cadet at the United States Military Academy. He is studying Computer Science with a minor in Cybersecurity, and is interested in applied neural networks, data analysis, and learning new things.
 Derek Nunn is a cadet at the United States Military Academy. He is studying Information Technology and is interested in security administration along with machine learning for firewalls.
+Kyle King is a senior Data Scientist at the National Security Agency and currently serves as the NSA Visiting Professor to the United States Military Academy at West Point. 
 
 REFERENCES:
 - https://metrics.torproject.org/hidserv-dir-onions-seen.html
