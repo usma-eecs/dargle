@@ -61,10 +61,18 @@ Are you submitting this or any other topic to BSidesLV? Yes or No. No
 Do you consent to allow DEF CON to forward your completed submission to relevant DEF CON Village lead(s) for their consideration for village content? Yes
 
 ABSTRACT (not to exceed 1337 characters):
-Note: Your abstract will be used for the website and printed materials. Summarize what your presentation will cover. Attendees will read this to get an idea of what they should know before your presentation, and what they will learn after. Use this to inform attendees about how technical your talk is, what tools will be used, what materials to read in advance to get the most out of your presentation. This abstract is the primary way people will be drawn to your session, but should not give them the entire content of the talk. We request you keep your abstract well over 140 characters, but at or under the 1337 maximum.
-The dark web is notoriously difficult to traverse. Addresses are only accessible with *a priori* knowledge; without an address beforehand, a user is unable to visit the associated hidden service. The dark web utilizes encrypted peer-to-peer connections, primarily through TOR protocols, meaning that content is highly anonymized, and several layers of abstraction exist between users and hidden services. These factors result in the Dark web being host to a myriad of services whose express goal is to host illegal content. When mentioning the Dark web, many are quick to point out the fact that it harbors hacking forums, drug marketplaces, hitmen-for-hire, and child pornography. While comprehensive knowledge of the Dark web proves valuable for law enforcement, acquiring a complete index of the Dark web proves difficult. Enthusiasts have taken steps to make the dark web more well-known, whether it is through status sites or just posting news regarding the dark web. The process to do so often requires manual enumeration of dark web sites to determine what service they offer and how to access it. Most of the sites available focus on the markets of the dark web, nor are generally safe if you utilize anti-virus. This project aims to create a dark web crawler to automate the process of finding hidden service URLs on the clear web and have the results accessible on the clear web. This was done by parsing the Common Crawl Corpus for dark web domains, connect to each domain, and display the results on a Flask app that everyone can access named dargle.
+The dark web is notoriously difficult to traverse. 
+Addresses are only accessible with *a priori* knowledge; without an address beforehand, a user is unable to visit the associated hidden service. 
+The dark web utilizes encrypted peer-to-peer connections, primarily through TOR protocols, meaning that content is highly anonymized, and several layers of abstraction exist between users and hidden services. 
+These factors result in the Dark web being host to a myriad of services whose express goal is to host illegal content. When mentioning the Dark web, many are quick to point out the fact that it harbors hacking forums, 
+drug marketplaces, hitmen-for-hire, and child pornography. While comprehensive knowledge of the Dark web proves valuable for law enforcement, acquiring a complete index of the Dark web proves difficult. 
+Enthusiasts have taken steps to make the dark web more well-known, whether it is through status sites or just posting news regarding the dark web. 
+The process to do so often requires manual enumeration of dark web sites to determine what service they offer and how to access it. 
+Most of the sites available focus on the markets of the dark web, nor are generally safe if you utilize anti-virus. This project aims to create a dark web crawler to automate the process of finding hidden service URLs 
+on the clear web and have the results accessible on the clear web. This was done by parsing the Common Crawl Corpus for dark web domains, connect to each domain, and display the results on a 
+Flask app that everyone can access named dargle.
 
-SPEAKER BIO(S) (not to exceed 1337 characters total):
+SPEAKER BIO(S):
 Harrison Strickland is a cadet at the United States Military Academy. He is studying Computer Science with a minor in Cybersecurity, and is interested in applied neural networks, data analysis, and learning new things.
 Derek Nunn is a cadet at the United States Military Academy. He is studying Information Technology and is interested in security administration along with machine learning for firewalls.
 Kyle King is a senior Data Scientist at the National Security Agency and currently serves as the NSA Visiting Professor to the United States Military Academy at West Point. 
@@ -84,22 +92,39 @@ REFERENCES:
 
 DETAILED OUTLINE:
 1/ Introduction
-2/ Background on the dark web
- - What is it
+  - Who we are
+2/ Quick background on the dark web
+ - What is the dark web
  - What are hidden services
- - How do users access hidden services
+ - How do users access said hidden services
 3/ Current sites that 'index' the dark web inefficiently/unsafe
+ - Discuss the risks and limitations of sites such as darknetstats.com and Ahmia
 4/ Purpose of dargle
-5/ Methodology of extracting data
- - Common crawl format
+ - Be an open-sourced project that everyone can contribute to or use in their own projects
+ - Assist law enforcement agencies in dark web investigations
+5/ Methodology of extracting dark web sites
+ - The format of the Common crawl is dependant upon what the type of file downloaded from the Common Crawl corpus
+   - For this project, a 8.9 TB dataset was used
  - Development of the onion finder
+   - How the regular expression was developed
+   - Initially utilized a custom python library written by William Zhang, then switched to native libraries for speed
+   - The script will take a file and look for regular expression matches then save the results to an identifiable CSV
+   - Discuss the purpose of creating a dump file after all the files were processed
+   - Final product is a multi-processed python script
 6/ Methodology of querying dark web sites
- - Development of the crawler
+ - Creation of a proxy for the crawler
+ - Determining the proper timeout when connecting to domains
+ - Parsing through the response for information such as the title and the date
+ - Saving the results to a sqlite database
 7/ Development of dargle
- - Transferring the results onto a Flask app
+ - Decision to use the Flask framework
+ - Generation of the web application's layout
+ - Displaying results from the database onto the app
+ - Deploying the app to the internet
+ - Obtaining the domain name
 8/ Future work
  - Classification
- - Check non HTTP/HTTPS ports
+ - Check non-standard HTTP/HTTPS ports
  - General speed and efficiency
 
 SCHEDULING AND EQUIPMENT REQUIREMENTS
