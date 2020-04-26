@@ -1,7 +1,7 @@
 PRESENTER INFORMATION
 Primary Speaker Name or Pseudonym*: Harrison Strickland
 
-Additional Speaker Name(s)/Pseudonym(s)* and Title(s): Derek Nunn
+Additional Speaker Name(s)/Pseudonym(s)* and Title(s): Derek Nunn, Kyle King, Daniel Hawthorne (last two backup only)
 
 Have any of the speakers spoken at a previous DEF CON? If Yes, which speaker, what year(s), and which talk(s)? No
 
@@ -11,9 +11,9 @@ Backup Email, in case of communication failure (optional): yashinexmachina@gmail
 
 Primary Speaker Phone Number: (404) 786-8717
 
-Co-Speaker(s) Email Address(es): danunn01@gmail.com 
+Co-Speaker(s) Email Address(es): danunn01@gmail.com, kyle.king@westpoint.edu, dshawth@pm.me
 
-Co-Speaker(s) Phone Number(s): (301) 885-7680
+Co-Speaker(s) Phone Number(s): (301) 885-7680, (845) 673-9492, (517) 745-4452
 
 Speakers' Social Media / Personal Site Information (Twitter, Facebook, website, etc)*: Derek Nunn Github: https://github.com/shadowwolf7027
 
@@ -21,7 +21,7 @@ Would you like your submission sent in anonymously to the review board?*: No
 
 PRESENTATION INFORMATION
 
-Date of Submission: 24 APR 2020
+Date of Submission: 28 APR 2020
 
 Presentation Title: Searching the dark web the Right Way
 
@@ -67,6 +67,7 @@ The dark web is notoriously difficult to traverse. Addresses are only accessible
 SPEAKER BIO(S) (not to exceed 1337 characters total):
 Harrison Strickland is a cadet at the United States Military Academy. He is studying Computer Science with a minor in Cybersecurity, and is interested in applied neural networks, data analysis, and learning new things.
 Derek Nunn is a cadet at the United States Military Academy. He is studying Information Technology and is interested in security administration along with machine learning for firewalls.
+Kyle King is a senior Data Scientist at the National Security Agency and currently serves as the NSA Visiting Professor to the United States Military Academy at West Point. 
 
 REFERENCES:
 - https://metrics.torproject.org/hidserv-dir-onions-seen.html
