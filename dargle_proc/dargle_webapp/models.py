@@ -1,6 +1,12 @@
 from datetime import datetime
 from dargle_webapp import db
 
+# Creates a object class 'Domains' for table in database
+# Domain class has the following attributes:
+#   - darkweb domain hash
+#   - hidden service status (e.g. 404)
+#   - how many times it appears on clear web (hits)
+#   - title of page if connection is successful
 class Domain(db.Model):
     __tablename__ = 'domains'
 
@@ -15,6 +21,11 @@ class Domain(db.Model):
     def __repr__(self):
         return "<Domain(domain={},title={},hits={})>".format(self.domain,self.title,self.hits)
 
+# Creates a object class 'Timestamp' for table in database
+# Timestamps have following attributes:
+#   - time of attempted connection
+#   - domain
+#   - status
 class Timestamp(db.Model):
     __tablename__ = 'timestamps'
 
