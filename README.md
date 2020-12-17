@@ -18,3 +18,13 @@ The Open-Sourced Dark Web Search Engine
 
 ## Grand Unified Diagram
 ![](Dargle.png)
+
+## TODO List (No order/priority)
+1. Use beautifulsoup to pull more information from landing pages
+2. Add recursive connection:
+    - Attempt to connect to every domain with 10s timeout timer
+    - After first pass, attempt connection again with, for example, 20s timeout timer
+    - Continue this process untill timeout timer is at its max value - 120s
+    - Update the DB to reflect
+3. Add crawling capabilities using information grabbed from landing pages
+4. Update site for better UIX and User Experience
