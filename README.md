@@ -17,13 +17,13 @@ The Open-Sourced Dark Web Search Engine
 - Run the command `python app.py`
 
 ## Files & Purpose
-/dargle_webapp/models.py                : creates classes for database tables
-/dargle_webapp/routes.py                : creates and handles webpages for Flask
-/dargle_webapp/tables/                  : holds .html templates for Flask app
+- /dargle_webapp/models.py                : creates classes for database tables
+- /dargle_webapp/routes.py                : creates and handles webpages for Flask
+- /dargle_webapp/tables/                  : holds .html templates for Flask app
 
-/dargle_webapp/workflow/autorun.py      : kicks off connection to addresses
-/dargle_webapp/workflow/request.py      : handles connecting to addresses and grabs information
-/dargle_webapp/workflow/dargle_orm.py   : handles translation from Python objects to SQLite3 database
+- /dargle_webapp/workflow/autorun.py      : kicks off connection to addresses
+- /dargle_webapp/workflow/request.py      : handles connecting to addresses and grabs information
+- /dargle_webapp/workflow/dargle_orm.py   : handles translation from Python objects to SQLite3 database
 
 ## Grand Unified Diagram
 ![](Dargle.png)
