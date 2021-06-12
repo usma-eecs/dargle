@@ -8,13 +8,22 @@ The Open-Sourced Dark Web Search Engine
 
     1.	Extract all hidden service URLs (i.e. .onion) from the Common Crawl corpus.  
     2.	Automatically determine the state of each URL (e.g. up, down, non-existent).
-    3. Create an interface for searching through indexed hidden service URLs.  
+    3.  Create an interface for searching through indexed hidden service URLs.  
 
 ## How to Use this App
 
 - Ensure you have SQLAlchemy, Flask, SQLite3, and Python installed
 - Navigate to `dargle/dargle_proc`
 - Run the command `python app.py`
+
+## Files & Purpose
+/dargle_webapp/models.py                : creates classes for database tables
+/dargle_webapp/routes.py                : creates and handles webpages for Flask
+/dargle_webapp/tables/                  : holds .html templates for Flask app
+
+/dargle_webapp/workflow/autorun.py      : kicks off connection to addresses
+/dargle_webapp/workflow/request.py      : handles connecting to addresses and grabs information
+/dargle_webapp/workflow/dargle_orm.py   : handles translation from Python objects to SQLite3 database
 
 ## Grand Unified Diagram
 ![](Dargle.png)
